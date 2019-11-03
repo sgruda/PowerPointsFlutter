@@ -8,10 +8,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         home: Scaffold(
-           // body: FireMap()
-          body: Center(
-            child: Text('Hello World'),
-          ),
+            body: FireMap()
+          //body: Center(
+         //   child: Text('Hello World'),
+         // ),
         )
     );
   }
