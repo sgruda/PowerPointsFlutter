@@ -8,10 +8,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         home: Scaffold(
-            body: FireMap()
-          //body: Center(
-         //   child: Text('Hello World'),
-         // ),
+           body: FireMap()
+         // body: Center(
+        //    child: Text('Hello World'),
+       //   ),
         )
     );
   }
@@ -30,7 +30,7 @@ class FireMapState extends State<FireMap> {
     return Stack(
         children: [
           GoogleMap(
-              initialCameraPosition: CameraPosition(target: LatLng(24.150, -110.32), zoom: 10),
+            initialCameraPosition: CameraPosition(target: LatLng(51.5905428,19.1432884), zoom: 10),
           ),
         ]
     );
