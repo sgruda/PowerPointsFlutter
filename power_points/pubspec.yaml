@@ -1,5 +1,5 @@
-name: power_points_flutter
-description: A new Flutter project.
+name: power_points
+description: A new Flutter application.
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -19,6 +19,18 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+
+  firebase_core: ^0.3.0
+  cloud_firestore: ^0.9.0
+
+  rxdart: ^0.20.0
+
+  geoflutterfire: ^2.0.2
+
+  location: 1.4.1
+  google_maps_flutter: ^0.2.0
+
+  font_awesome_flutter: 8.4.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

@@ -1,4 +1,4 @@
-package com.example.power_points_flutter
+package lut.mobile.power_points
 
 import android.os.Bundle
 

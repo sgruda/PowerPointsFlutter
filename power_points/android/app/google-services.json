@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "230979306572",
+    "firebase_url": "https://power-points-7ad2e.firebaseio.com",
+    "project_id": "power-points-7ad2e",
+    "storage_bucket": "power-points-7ad2e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:230979306572:android:db315ea526a0b5861ee0e9",
+        "android_client_info": {
+          "package_name": "lut.mobile.powerpoints"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "230979306572-hbtsj2kg7e33eigaql07fkmnank36qgj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "lut.mobile.powerpoints",
+            "certificate_hash": "c1f8edfb4d11720b3b23ed82ba4817e1b680fede"
+          }
+        },
+        {
+          "client_id": "230979306572-npvh4kapf22aee5g36lak4qm903vsrfd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPCIkDienY-V7qsPMQ-iEAcAt58CR25Po"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "230979306572-npvh4kapf22aee5g36lak4qm903vsrfd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
