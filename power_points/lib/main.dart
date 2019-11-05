@@ -13,10 +13,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         home: Scaffold(
-          body: FireMap(cur),
-          appBar: AppBar(
-            title: Text('Latitude: ' + cur.getLatitude() + '\nLongitude: ' + cur.getLongitude()),
-          ),
+          body: FireMap(),
+//          appBar: AppBar(
+//            title: Text('Latitude: ' + cur.getLatitude().toString() + '\nLongitude: ' + cur.getLongitude().toString()),
+//          ),
 
         )
       // body: Center(
@@ -29,13 +29,12 @@ class MyApp extends StatelessWidget {
 
 class FireMap extends StatefulWidget {
   @override
-  CurrentLocation location;
-  FireMap(CurrentLocation currentLocation) {
-    location = currentLocation;
-  }
-  State createState() => FireMapState(location);
+//  CurrentLocation location;
+//  FireMap(CurrentLocation currentLocation) {
+//    location = currentLocation;
+//  }
+  State createState() => FireMapState();
 }
-
 class CurrentLocation {
   double latitude;
   double longitude;
@@ -50,29 +49,31 @@ class CurrentLocation {
 
     }
   }
-  String getLatitude() {
+  double getLatitude() {
     _getLocation();
-    return latitude.toString();
+    return latitude;
   }
-  String getLongitude() {
+  double getLongitude() {
     _getLocation();
-    return longitude.toString();
+    return longitude;
   }
 }
 class FireMapState extends State<FireMap> {
   GoogleMapController mapController;
-  var currentLocation;
-  CurrentLocation myLocation;
-  FireMapState(CurrentLocation currentLocation) {
-    myLocation = currentLocation;
-  }
+  String lat = "loading";
+  String long = "loading";
   build(context) {
-    return Stack(
-        children: [
+    return Scaffold(
+        appBar: AppBar(
+        title: Text('Latitude: ' + lat + '\nLongitude: ' + long),
+    ),
+        body: Container(
+        child: Stack(
+           children: [
           GoogleMap(
             initialCameraPosition: CameraPosition(
-                target: LatLng(51.589496, 19.158193),
-                //target: LatLng(51.747300, 19.453670),
+//                target: LatLng(51.589496, 19.158193),
+                target: LatLng(51.747300, 19.453670),
                 //target: LatLng(currentLocation['latitude'], currentLocation['longitude']),
                 zoom: 15
             ),
@@ -83,12 +84,12 @@ class FireMapState extends State<FireMap> {
             trackCameraPosition: true,
           ),
 
-        ]
+        ]))
     );
   }
   void _onMapCreated(GoogleMapController controller) {
 //    _getLocation();
-    //_animateToUser();
+    _animateToUser();
     setState(() {
       mapController = controller;
     });
@@ -96,12 +97,19 @@ class FireMapState extends State<FireMap> {
   _animateToUser() async {
     var location = new Location();
     var pos = await location.getLocation();
+  lat = cur.getLatitude().toString();
+  long = cur.getLongitude().toString();
+
     mapController.animateCamera(CameraUpdate.newCameraPosition(
         CameraPosition(
-          target: LatLng(pos['latitude'], pos['longitude']),
+          target: LatLng(cur.getLatitude(), cur.getLongitude()),
           zoom: 17.0,
         )
     )
     );
+  print("lat = " +cur.getLatitude().toString());
+  print("long = " + cur.getLongitude().toString());
+    print("lat pos = " +pos["latitude"].toString());
+    print("long pos = " + pos["longitude"].toString());
   }
 }
