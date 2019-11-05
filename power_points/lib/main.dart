@@ -36,8 +36,8 @@ class CurrentLocation {
     var location = new Location();
     try {
       var currentLocation = await location.getLocation();
-      latitude = currentLocation["latitude"];
-      longitude = currentLocation["longitude"];
+      latitude = currentLocation.latitude;
+      longitude = currentLocation.longitude;
     } on Exception {
         latitude = 0;
         longitude = 0;
@@ -68,7 +68,7 @@ class FireMapState extends State<FireMap> {
             myLocationEnabled: true,
             mapType: MapType.hybrid,
             compassEnabled: true,
-            trackCameraPosition: true,
+           // trackCameraPosition: true,
           ),
 
         ]
@@ -82,12 +82,12 @@ class FireMapState extends State<FireMap> {
     });
   }
   _animateToUser() async {
-//    var location = new Location();
-//    var pos = await location.getLocation();
+    var location = new Location();
+    var pos = await location.getLocation();
     mapController.animateCamera(CameraUpdate.newCameraPosition(
         CameraPosition(
-          target: LatLng(cur.getLatitude(), cur.getLongitude()),
-//          target: LatLng(pos["latitude"], pos["longitude"]),
+//          target: LatLng(cur.getLatitude(), cur.getLongitude()),
+          target: LatLng(pos.latitude, pos.longitude),
           zoom: 17.0,
         )
     )
