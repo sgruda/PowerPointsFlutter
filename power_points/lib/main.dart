@@ -81,7 +81,6 @@ class FireMapState extends State<FireMap> {
             myLocationEnabled: true,
             mapType: MapType.hybrid,
             compassEnabled: true,
-            trackCameraPosition: true,
           ),
 
         ]))
@@ -107,9 +106,38 @@ class FireMapState extends State<FireMap> {
         )
     )
     );
-  print("lat = " +cur.getLatitude().toString());
-  print("long = " + cur.getLongitude().toString());
-    print("lat pos = " +pos["latitude"].toString());
-    print("long pos = " + pos["longitude"].toString());
   }
 }
+LocationData _currentLocation;
+StreamSubscription<LocationData> _locationSubscription;
+
+var _locationService = new Location();
+String error;
+
+void initState() {
+  super.initState();
+
+  initPlatformState();
+
+  _locationSubscription = _locationService
+      .onLocationChanged()
+      .listen((LocationData currentLocation) async {
+    setState(() {
+      _currentLocation = currentLocation;
+    });
+  });
+}
+
+void initPlatformState() async {
+  try {
+    _currentLocation = await _locationService.getLocation();
+
+
+  } on PlatformException catch (e) {
+    if (e.code == 'PERMISSION_DENIED') {
+      error = 'Permission denied';
+    }else if(e.code == "PERMISSION_DENIED_NEVER_ASK"){
+      error = 'Permission denied';
+    }
+    _currentLocation = null;
+  }
