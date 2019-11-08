@@ -6,7 +6,6 @@ import 'dart:async';
 
 void main() => runApp(MyApp());
 
-CurrentLocation cur = new CurrentLocation();
 
 class MyApp extends StatelessWidget {
   @override
@@ -15,10 +14,6 @@ class MyApp extends StatelessWidget {
         home: Scaffold(
           body: FireMap()
         )
-      // body: Center(
-      //    child: Text('Hello World'),
-      //   ),
-       //)
     );
   }
 }
@@ -28,30 +23,6 @@ class FireMap extends StatefulWidget {
   State createState() => FireMapState();
 }
 
-class CurrentLocation {
-  double latitude;
-  double longitude;
-
-  _getLocation() async {
-    var location = new Location();
-    try {
-      var currentLocation = await location.getLocation();
-      latitude = currentLocation.latitude;
-      longitude = currentLocation.longitude;
-    } on Exception {
-        latitude = 0;
-        longitude = 0;
-    }
-  }
-  double getLatitude() {
-    _getLocation();
-    return latitude;
-  }
-  double getLongitude() {
-    _getLocation();
-    return longitude;
-  }
-}
 class FireMapState extends State<FireMap> {
   GoogleMapController mapController;
   build(context) {
@@ -59,23 +30,21 @@ class FireMapState extends State<FireMap> {
         children: [
           GoogleMap(
             initialCameraPosition: CameraPosition(
-                target: LatLng(51.589496, 19.158193),                           // Home
-//                target: LatLng(51.747300, 19.453670),                         // Polibuda
-                //target: LatLng(currentLocation['latitude'], currentLocation['longitude']),
+//                target: LatLng(51.589496, 19.158193),                           // Home
+                target: LatLng(51.747300, 19.453670),                         // Polibuda
                 zoom: 15
             ),
             onMapCreated: _onMapCreated,
             myLocationEnabled: true,
             mapType: MapType.hybrid,
             compassEnabled: true,
-           // trackCameraPosition: true,
           ),
 
         ]
     );
   }
   void _onMapCreated(GoogleMapController controller) {
-//    _getLocation();
+    _addMarkers(controller);
     _animateToUser();
     setState(() {
       mapController = controller;
@@ -86,11 +55,30 @@ class FireMapState extends State<FireMap> {
     var pos = await location.getLocation();
     mapController.animateCamera(CameraUpdate.newCameraPosition(
         CameraPosition(
-//          target: LatLng(cur.getLatitude(), cur.getLongitude()),
           target: LatLng(pos.latitude, pos.longitude),
           zoom: 17.0,
         )
     )
     );
+  }
+  void _addMarkers(GoogleMapController controller) {
+    var marker = MarkerOptions(
+        position: LatLng(51.7474, 19.4537),
+        icon: BitmapDescriptor.defaultMarker,
+        infoWindowText: InfoWindowText("Jej, udalo sie!","")
+    );
+    controller.addMarker(marker);
+  }
+  void _checkPoints() async {
+    var location = new Location();
+    var pos = await location.getLocation();
+
+    if( abs(pos.latitude - 51.747 ) < 0.001 && abs(pos.longitude - 19.4537 ) < 0.001) {
+
+    }
+    );
+  }
+  double abs(double x) {
+    return x < 0 ? -x : x;
   }
 }
