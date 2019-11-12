@@ -252,13 +252,13 @@ class FireMapState extends State<FireMap> {
     var location = new Location();
     var pos = await location.getLocation();
     if( abs(pos.latitude - 51.747 ) < 1 && abs(pos.longitude - 19.4537 ) < 1) {
-      _neverSatisfied(context, "Brawo", "Udało Ci się!");
+      _popAd(context, "Brawo", "Udało Ci się!");
     }
   }
   double abs(double x) {
     return x < 0 ? -x : x;
   }
-  Future<void> _neverSatisfied(BuildContext context, String title, String text) async {
+  Future<void> _popAd(BuildContext context, String title, String text) async {
     return showDialog<void>(
       context: context,
       barrierDismissible: false, // user must tap button!
