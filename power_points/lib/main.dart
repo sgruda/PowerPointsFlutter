@@ -26,8 +26,8 @@ class HomeScreen extends StatelessWidget {
           backgroundColor: Colors.deepOrange,
         ),
         drawer: Drawer(
-          child: Container(
-            color: Colors.white,
+
+
             child: ListView(
               children: <Widget>[
                 DrawerHeader(
@@ -40,11 +40,10 @@ class HomeScreen extends StatelessWidget {
                     child: Container(
                       child: Column(
                         children: <Widget>[
-                          Material(
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                            elevation: 10,
-                            color: Colors.white,
-                            child: Icon(Icons.location_on, size: 100,color: Colors.red,),
+                          CircleAvatar(
+                            backgroundColor: Colors.white,
+                            radius: 50,
+                            child: Icon(Icons.location_on, size: 100,color: Colors.blue,),
                           ),
                           Padding(
                             padding: const EdgeInsets.all(4.0),
@@ -62,7 +61,7 @@ class HomeScreen extends StatelessWidget {
               ],
             ),
           ),
-        )
+
     );
   }
 }
@@ -76,12 +75,16 @@ class ProfileMenu extends StatelessWidget {
         backgroundColor: Colors.deepOrange,
       ),
       body: Center(
-        child: RaisedButton(
-          onPressed: () {
-            // Navigate back to first route when tapped.
-          },
-          child: Text('Go back!'),
+        child:CircleAvatar(
+          radius: 85,
+          backgroundColor: Colors.deepOrange,
+          child: CircleAvatar(
+            radius: 75,
+            backgroundColor: Colors.white,
+            child: Icon(Icons.person, size: 100, color: Colors.grey,),
+          )
         ),
+        //child: Text("Morty",style: TextStyle(color: Colors.white,fontSize: 35),),
       ),
     );
   }
@@ -96,12 +99,9 @@ class PointsMenu extends StatelessWidget {
         backgroundColor: Colors.deepOrange,
       ),
       body: Center(
-        child: RaisedButton(
-          onPressed: () {
-            // Navigate back to first route when tapped.
-          },
-          child: Text('Go back!'),
-        ),
+        child: CircleAvatar(
+
+        )
       ),
     );
   }
@@ -193,6 +193,7 @@ class CustomListTile extends StatelessWidget{
     );
   }
 }
+
 
 class FireMap extends StatefulWidget {
   @override
