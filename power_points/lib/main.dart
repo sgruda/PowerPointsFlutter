@@ -105,7 +105,7 @@ void _checkPoints(BuildContext context) async {
   var location = new Location();
   var pos = await location.getLocation();
   if(instruction) {
-    _popAd(context, "Dziękujemy za pobranie aplikacji.", "Idź w świat i poznawaj kampus, przy okazji zbieraj punkty i wymieniej je na piwo ;)");
+    _popAd(context, "Dziękujemy za pobranie aplikacji.", "Idź w świat i poznawaj kampus, przy okazji zbieraj punkty (klikając przy chodzeniu) i wymieniej je na piwo ;)");
     instruction = false;
   }
 //  if(abs(pos.latitude - 51.589825 ) < 0.00012 && abs(pos.longitude - 19.158243 ) < 0.00012) {
@@ -128,25 +128,17 @@ void _checkPoints(BuildContext context) async {
 //    _popAd(context, "Kotłownia", "Udało Ci się! Zdobyłeś 100 punktów!");
 //    userPoints += 100;
 //  }
-  if(abs(pos.latitude - 51.589825 ) < 0.00012 && abs(pos.longitude - 19.158243 ) < 0.00012) {
-    _popAd(context, "Brawo", "Udało Ci się! Zdobyłeś 100 punktów!");
-    userPoints += 100;
+  if(abs(pos.latitude - 51.747179 ) < 0.00012 && abs(pos.longitude - 19.453392 ) < 0.00012) {
+    _popAd(context, "Brawo", "Udało Ci się znaleźć windę. Zdobyłeś 10 punktów! Czy wiedziałeś, że często się psują?");
+    userPoints += 10;
   }
-  if( abs(pos.latitude - 51.590552 ) < 0.00052 && abs(pos.longitude - 19.158772 ) < 0.00052) {
-    _popAd(context, "Niemożliwe", "Udało Ci się! Zdobyłeś 100 punktów!");
-    userPoints += 100;
+  if( abs(pos.latitude - 51.747208 ) < 0.00052 && abs(pos.longitude - 19.453742 ) < 0.00052) {
+    _popAd(context, "Niemożliwe", "Udało Ci się zobaczyć Lodex => budenek trzech wydziałów! Zdobyłeś 20 punktów!");
+    userPoints += 10;
   }
-  if( abs(pos.latitude - 51.590969) < 0.00052 && abs(pos.longitude - 19.159729 ) < 0.00052) {
-    _popAd(context, "Zabka", "Udało Ci się! Zdobyłeś 100 punktów!");
-    userPoints += 100;
-  }
-  if( abs(pos.latitude - 51.590459 ) < 0.00052 && abs(pos.longitude - 19.160708 ) < 0.00052) {
-    _popAd(context, "łaka", "Udało Ci się! Zdobyłeś 100 punktów!");
-    userPoints += 100;
-  }
-  if( abs(pos.latitude - 51.589092 ) < 0.00052 && abs(pos.longitude - 19.158801 ) < 0.00052) {
-    _popAd(context, "Kotłownia", "Udało Ci się! Zdobyłeś 100 punktów!");
-    userPoints += 100;
+  if( abs(pos.latitude - 51.747208) < 0.00052 && abs(pos.longitude - 19.453742 ) < 0.00052) {
+    _popAd(context, "Kącik sali.", "Stoisz w kącie! Zdobyłeś 10 punktów!");
+    userPoints += 10;
   }
 }
 class ProfileMenu extends StatelessWidget {
@@ -290,8 +282,8 @@ class FireMapState extends State<FireMap> {
         children: [
           GoogleMap(
             initialCameraPosition: CameraPosition(
-                target: LatLng(51.589496, 19.158193),                           // Home
-//                target: LatLng(51.747300, 19.453670),                         // Polibuda
+//                target: LatLng(51.589496, 19.158193),                           // Home
+                target: LatLng(51.747300, 19.453670),                         // Polibuda
                 zoom: 15
             ),
             onMapCreated: _onMapCreated,
@@ -324,40 +316,26 @@ class FireMapState extends State<FireMap> {
   }
   void _addMarkers(GoogleMapController controller) {
     var marker = MarkerOptions(
-        position: LatLng(51.747161, 19.453159),                                       //Polibuda
+        position: LatLng(51.747179, 19.453392),                                       //Polibuda
 //        position: LatLng(51.589825, 19.158243),                                     //Home
-        icon: BitmapDescriptor.defaultMarker,
+        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueAzure),
         infoWindowText: InfoWindowText("O winda!","")
     );
+    controller.addMarker(marker);
     var marker2 = MarkerOptions(
-//        position: LatLng(51.7474, 19.4537),                                       //Polibuda
-        position: LatLng(51.590552, 19.158772),                                     //Home
-        icon: BitmapDescriptor.defaultMarker,
-        infoWindowText: InfoWindowText("Czyżby?","")
+        position: LatLng(51.747201, 19.452759),                                       //Polibuda
+//        position: LatLng(51.590552, 19.158772),                                     //Home
+        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueAzure),
+        infoWindowText: InfoWindowText("Kącik.","")
     );
+    controller.addMarker(marker2);
     var marker3 = MarkerOptions(
-//        position: LatLng(51.7474, 19.4537),                                       //Polibuda
-        position: LatLng(51.590969, 19.159729),                                     //Home
-        icon: BitmapDescriptor.defaultMarker,
-        infoWindowText: InfoWindowText("zabka","")
+        position: LatLng(51.747208, 19.453742),                                       //Polibuda
+//        position: LatLng(51.590969, 19.159729),                                     //Home
+        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueAzure),
+        infoWindowText: InfoWindowText("Lodex","")
     );
     controller.addMarker(marker3);
-    var marker4 = MarkerOptions(
-//        position: LatLng(51.7474, 19.4537),                                       //Polibuda
-        position: LatLng(51.590459, 19.160708),                                     //Home
-        icon: BitmapDescriptor.defaultMarker,
-        infoWindowText: InfoWindowText("laka","")
-    );
-    controller.addMarker(marker4);
-    var marker5 = MarkerOptions(
-//        position: LatLng(51.7474, 19.4537),                                       //Polibuda
-        position: LatLng(51.589092, 19.158801),                                     //Home
-        icon: BitmapDescriptor.defaultMarker,
-        infoWindowText: InfoWindowText("kotłownia","")
-    );
-    controller.addMarker(marker5);
-    controller.addMarker(marker2);
-    controller.addMarker(marker);
 
   }
 //  void _checkPoints() async {
