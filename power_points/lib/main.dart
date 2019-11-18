@@ -6,8 +6,8 @@ import 'dart:async';
 
 void main() => runApp(MyApp());
 
-
-
+bool instruction = true;
+int userPoints = 0;
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -20,52 +20,135 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: FireMap(),
-        appBar: AppBar(
-          title: Text('Mapka'),
-          backgroundColor: Colors.deepOrange,
-        ),
-        drawer: Drawer(
+      body: FireMap(),
+      appBar: AppBar(
+        title: Text('Mapka'),
+        backgroundColor: Colors.deepOrange,
+      ),
+      drawer: Drawer(
 
 
-            child: ListView(
-              children: <Widget>[
-                DrawerHeader(
-                    decoration: BoxDecoration(
-                        gradient: LinearGradient(colors: <Color>[
-                          Colors.deepOrange[500],
-                          Colors.orange
-                        ])
-                    ),
-                    child: Container(
-                      child: Column(
-                        children: <Widget>[
-                          CircleAvatar(
-                            backgroundColor: Colors.white,
-                            radius: 50,
-                            child: Icon(Icons.location_on, size: 100,color: Colors.blue,),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Text('Mapka: The Game',style: TextStyle(color: Colors.white, fontSize: 25.0)),
-                          ),
-                        ],
-                      ),
-
-                    )
+        child: ListView(
+          children: <Widget>[
+            DrawerHeader(
+                decoration: BoxDecoration(
+                    gradient: LinearGradient(colors: <Color>[
+                      Colors.deepOrange[500],
+                      Colors.orange
+                    ])
                 ),
-                CustomListTile(Icons.person, 'Profile', () {Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileMenu()),);}),
-                CustomListTile(Icons.monetization_on, 'Points', () {Navigator.push(context, MaterialPageRoute(builder: (context) => PointsMenu()),);}),
-                CustomListTile(Icons.comment, 'Trivia', () {Navigator.push(context, MaterialPageRoute(builder: (context) => TriviaMenu()),);}),
-                CustomListTile(Icons.settings, 'Settings', () {Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsMenu()),);}),
-              ],
+                child: Container(
+                  child: Column(
+                    children: <Widget>[
+                      CircleAvatar(
+                        backgroundColor: Colors.white,
+                        radius: 50,
+                        child: Icon(Icons.location_on, size: 100,color: Colors.blue,),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: Text('Mapka: The Game',style: TextStyle(color: Colors.white, fontSize: 25.0)),
+                      ),
+                    ],
+                  ),
+
+                )
             ),
-          ),
+            CustomListTile(Icons.person, 'Profile', () {Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileMenu()),);}),
+            CustomListTile(Icons.monetization_on, 'Points', () {Navigator.push(context, MaterialPageRoute(builder: (context) => PointsMenu()),);}),
+            CustomListTile(Icons.comment, 'Trivia', () {Navigator.push(context, MaterialPageRoute(builder: (context) => TriviaMenu()),);}),
+            CustomListTile(Icons.settings, 'Settings', () {Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsMenu()),);}),
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          _checkPoints(context);
+        },
+        child: Icon(Icons.navigation),
+        backgroundColor: Colors.deepOrange,
+      )
 
     );
   }
 }
-
+double abs(double x) {
+  return x < 0 ? -x : x;
+}
+Future<void> _popAd(BuildContext context, String title, String text) async {
+  return showDialog<void>(
+    context: context,
+    barrierDismissible: false, // user must tap button!
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text(title),
+        content: SingleChildScrollView(
+          child: ListBody(
+            children: <Widget>[
+              Text(text),
+            ],
+          ),
+        ),
+        actions: <Widget>[
+          FlatButton(
+            child: Text('OK'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
+void _checkPoints(BuildContext context) async {
+  var location = new Location();
+  var pos = await location.getLocation();
+  if(instruction) {
+    _popAd(context, "Dziękujemy za pobranie aplikacji.", "Idź w świat i poznawaj kampus, przy okazji zbieraj punkty i wymieniej je na piwo ;)");
+    instruction = false;
+  }
+//  if(abs(pos.latitude - 51.589825 ) < 0.00012 && abs(pos.longitude - 19.158243 ) < 0.00012) {
+//    _popAd(context, "Brawo", "Udało Ci się! Zdobyłeś 100 punktów!");
+//    userPoints += 100;
+//  }
+//  if( abs(pos.latitude - 51.590552 ) < 0.00052 && abs(pos.longitude - 19.158772 ) < 0.00052) {
+//    _popAd(context, "Niemożliwe", "Udało Ci się! Zdobyłeś 100 punktów!");
+//    userPoints += 100;
+//  }
+//  if( abs(pos.latitude - 51.590969) < 0.00052 && abs(pos.longitude - 19.159729 ) < 0.00052) {
+//    _popAd(context, "Zabka", "Udało Ci się! Zdobyłeś 100 punktów!");
+//    userPoints += 100;
+//  }
+//  if( abs(pos.latitude - 51.590459 ) < 0.00052 && abs(pos.longitude - 19.160708 ) < 0.00052) {
+//    _popAd(context, "łaka", "Udało Ci się! Zdobyłeś 100 punktów!");
+//    userPoints += 100;
+//  }
+//  if( abs(pos.latitude - 51.589092 ) < 0.00052 && abs(pos.longitude - 19.158801 ) < 0.00052) {
+//    _popAd(context, "Kotłownia", "Udało Ci się! Zdobyłeś 100 punktów!");
+//    userPoints += 100;
+//  }
+  if(abs(pos.latitude - 51.589825 ) < 0.00012 && abs(pos.longitude - 19.158243 ) < 0.00012) {
+    _popAd(context, "Brawo", "Udało Ci się! Zdobyłeś 100 punktów!");
+    userPoints += 100;
+  }
+  if( abs(pos.latitude - 51.590552 ) < 0.00052 && abs(pos.longitude - 19.158772 ) < 0.00052) {
+    _popAd(context, "Niemożliwe", "Udało Ci się! Zdobyłeś 100 punktów!");
+    userPoints += 100;
+  }
+  if( abs(pos.latitude - 51.590969) < 0.00052 && abs(pos.longitude - 19.159729 ) < 0.00052) {
+    _popAd(context, "Zabka", "Udało Ci się! Zdobyłeś 100 punktów!");
+    userPoints += 100;
+  }
+  if( abs(pos.latitude - 51.590459 ) < 0.00052 && abs(pos.longitude - 19.160708 ) < 0.00052) {
+    _popAd(context, "łaka", "Udało Ci się! Zdobyłeś 100 punktów!");
+    userPoints += 100;
+  }
+  if( abs(pos.latitude - 51.589092 ) < 0.00052 && abs(pos.longitude - 19.158801 ) < 0.00052) {
+    _popAd(context, "Kotłownia", "Udało Ci się! Zdobyłeś 100 punktów!");
+    userPoints += 100;
+  }
+}
 class ProfileMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -76,13 +159,13 @@ class ProfileMenu extends StatelessWidget {
       ),
       body: Center(
         child:CircleAvatar(
-          radius: 85,
-          backgroundColor: Colors.deepOrange,
-          child: CircleAvatar(
-            radius: 75,
-            backgroundColor: Colors.white,
-            child: Icon(Icons.person, size: 100, color: Colors.grey,),
-          )
+            radius: 85,
+            backgroundColor: Colors.deepOrange,
+            child: CircleAvatar(
+              radius: 75,
+              backgroundColor: Colors.white,
+              child: Icon(Icons.person, size: 100, color: Colors.grey,),
+            )
         ),
         //child: Text("Morty",style: TextStyle(color: Colors.white,fontSize: 35),),
       ),
@@ -99,9 +182,9 @@ class PointsMenu extends StatelessWidget {
         backgroundColor: Colors.deepOrange,
       ),
       body: Center(
-        child: CircleAvatar(
+          child: CircleAvatar(
 
-        )
+          )
       ),
     );
   }
@@ -223,7 +306,7 @@ class FireMapState extends State<FireMap> {
   void _onMapCreated(GoogleMapController controller) {
     _addMarkers(controller);
     _animateToUser();
-    _checkPoints();
+    //_checkPoints();
     setState(() {
       mapController = controller;
     });
@@ -241,47 +324,110 @@ class FireMapState extends State<FireMap> {
   }
   void _addMarkers(GoogleMapController controller) {
     var marker = MarkerOptions(
-//        position: LatLng(51.7474, 19.4537),                                       //Polibuda
-        position: LatLng(51.58949, 19.15819),                                     //Home
+        position: LatLng(51.747161, 19.453159),                                       //Polibuda
+//        position: LatLng(51.589825, 19.158243),                                     //Home
         icon: BitmapDescriptor.defaultMarker,
-        infoWindowText: InfoWindowText("Jej, udalo sie!","")
+        infoWindowText: InfoWindowText("O winda!","")
     );
+    var marker2 = MarkerOptions(
+//        position: LatLng(51.7474, 19.4537),                                       //Polibuda
+        position: LatLng(51.590552, 19.158772),                                     //Home
+        icon: BitmapDescriptor.defaultMarker,
+        infoWindowText: InfoWindowText("Czyżby?","")
+    );
+    var marker3 = MarkerOptions(
+//        position: LatLng(51.7474, 19.4537),                                       //Polibuda
+        position: LatLng(51.590969, 19.159729),                                     //Home
+        icon: BitmapDescriptor.defaultMarker,
+        infoWindowText: InfoWindowText("zabka","")
+    );
+    controller.addMarker(marker3);
+    var marker4 = MarkerOptions(
+//        position: LatLng(51.7474, 19.4537),                                       //Polibuda
+        position: LatLng(51.590459, 19.160708),                                     //Home
+        icon: BitmapDescriptor.defaultMarker,
+        infoWindowText: InfoWindowText("laka","")
+    );
+    controller.addMarker(marker4);
+    var marker5 = MarkerOptions(
+//        position: LatLng(51.7474, 19.4537),                                       //Polibuda
+        position: LatLng(51.589092, 19.158801),                                     //Home
+        icon: BitmapDescriptor.defaultMarker,
+        infoWindowText: InfoWindowText("kotłownia","")
+    );
+    controller.addMarker(marker5);
+    controller.addMarker(marker2);
     controller.addMarker(marker);
+
   }
-  void _checkPoints() async {
-    var location = new Location();
-    var pos = await location.getLocation();
-    if( abs(pos.latitude - 51.747 ) < 1 && abs(pos.longitude - 19.4537 ) < 1) {
-      _popAd(context, "Brawo", "Udało Ci się!");
-    }
-  }
-  double abs(double x) {
-    return x < 0 ? -x : x;
-  }
-  Future<void> _popAd(BuildContext context, String title, String text) async {
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: false, // user must tap button!
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(title),
-          content: SingleChildScrollView(
-            child: ListBody(
-              children: <Widget>[
-                Text(text),
-              ],
-            ),
-          ),
-          actions: <Widget>[
-            FlatButton(
-              child: Text('OK'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
+//  void _checkPoints() async {
+//    var location = new Location();
+//    var pos = await location.getLocation();
+//    if(instruction) {
+//      setState(() {
+//        _popAd(context, "Dziękujemy za pobranie aplikacji.", "Idź w świat i poznawaj kampus, przy okazji zbieraj punkty i wymieniej je na piwo ;)");
+//      });
+//      instruction = false;
+//    }
+//    if( abs(pos.latitude - 51.589825 ) < 0.00012 && abs(pos.longitude - 19.158243 ) < 0.00012) {
+//      setState(() {
+//        _popAd(context, "Brawo", "Udało Ci się! Zdobyłeś 100 punktów!");
+//      });
+//      userPoints += 100;
+//    }
+//    if( abs(pos.latitude - 51.590552 ) < 0.00052 && abs(pos.longitude - 19.158772 ) < 0.00052) {
+//      setState(() {
+//        _popAd(context, "Niemożliwe", "Udało Ci się! Zdobyłeś 100 punktów!");
+//      });
+//      userPoints += 100;
+//    }
+//    if( abs(pos.latitude - 51.590969) < 0.00052 && abs(pos.longitude - 19.159729 ) < 0.00052) {
+//      setState(() {
+//        _popAd(context, "Zabka", "Udało Ci się! Zdobyłeś 100 punktów!");
+//      });
+//      userPoints += 100;
+//    }
+//    if( abs(pos.latitude - 51.590459 ) < 0.00052 && abs(pos.longitude - 19.160708 ) < 0.00052) {
+//      setState(() {
+//        _popAd(context, "łaka", "Udało Ci się! Zdobyłeś 100 punktów!");
+//      });
+//      userPoints += 100;
+//    }
+//    if( abs(pos.latitude - 51.589092 ) < 0.00052 && abs(pos.longitude - 19.158801 ) < 0.00052) {
+//      setState(() {
+//        _popAd(context, "Kotłownia", "Udało Ci się! Zdobyłeś 100 punktów!");
+//      });
+//      userPoints += 100;
+//    }
+//
+//  }
+//  double abs(double x) {
+//    return x < 0 ? -x : x;
+//  }
+//  Future<void> _popAd(BuildContext context, String title, String text) async {
+//    return showDialog<void>(
+//      context: context,
+//      barrierDismissible: false, // user must tap button!
+//      builder: (BuildContext context) {
+//        return AlertDialog(
+//          title: Text(title),
+//          content: SingleChildScrollView(
+//            child: ListBody(
+//              children: <Widget>[
+//                Text(text),
+//              ],
+//            ),
+//          ),
+//          actions: <Widget>[
+//            FlatButton(
+//              child: Text('OK'),
+//              onPressed: () {
+//                Navigator.of(context).pop();
+//              },
+//            ),
+//          ],
+//        );
+//      },
+//    );
+//  }
 }
