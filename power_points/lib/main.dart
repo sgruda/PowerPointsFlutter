@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
@@ -5,6 +6,9 @@ import 'package:geoflutterfire/geoflutterfire.dart';
 import 'dart:async';
 
 void main() => runApp(MyApp());
+
+
+int userPoints = 40;
 
 
 class MyApp extends StatelessWidget {
@@ -89,6 +93,8 @@ class ProfileMenu extends StatelessWidget {
   }
 }
 
+
+
 class PointsMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -98,10 +104,25 @@ class PointsMenu extends StatelessWidget {
         backgroundColor: Colors.deepOrange,
       ),
       body: Center(
-        child: CircleAvatar(
-
-        )
-      ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Center(child: Text("Number of points", style: TextStyle(fontSize: 35),)),
+            SizedBox(height: 30,),
+            Center(
+                child:CircleAvatar(
+                  radius: 60,
+                  backgroundColor: Colors.deepOrange,
+                  child: CircleAvatar(
+                    radius: 55,
+                    backgroundColor: Colors.white,
+                    child: Text(userPoints.toString(), style: TextStyle(fontSize: 50, color: Colors.black))),
+              )
+            )
+          ],
+        ),
+      )
     );
   }
 }
