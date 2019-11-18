@@ -9,7 +9,7 @@ void main() => runApp(MyApp());
 
 
 int userPoints = 40;
-
+String userName = "Jakobo Klepaczczo";
 
 class MyApp extends StatelessWidget {
   @override
@@ -78,14 +78,25 @@ class ProfileMenu extends StatelessWidget {
         backgroundColor: Colors.deepOrange,
       ),
       body: Center(
-        child:CircleAvatar(
-          radius: 85,
-          backgroundColor: Colors.deepOrange,
-          child: CircleAvatar(
-            radius: 75,
-            backgroundColor: Colors.white,
-            child: Icon(Icons.person, size: 100, color: Colors.grey,),
-          )
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+
+            Center(
+              child:CircleAvatar(
+                  radius: 85,
+                  backgroundColor: Colors.deepOrange,
+                  child: CircleAvatar(
+                    radius: 75,
+                    backgroundColor: Colors.white,
+                    child: Icon(Icons.person, size: 100, color: Colors.grey,),
+                  )
+              ),
+            ),
+            SizedBox(height: 30,),
+            Center(child: Text(userName, style: TextStyle(fontSize: 35),)),
+          ],
         ),
         //child: Text("Morty",style: TextStyle(color: Colors.white,fontSize: 35),),
       ),
@@ -261,7 +272,7 @@ class FireMapState extends State<FireMap> {
   void _addMarkers(GoogleMapController controller) {
     var marker = MarkerOptions(
         position: LatLng(51.7474, 19.4537),
-        icon: BitmapDescriptor.defaultMarker,
+        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueAzure),
         infoWindowText: InfoWindowText("Jej, udalo sie!","")
     );
     controller.addMarker(marker);
