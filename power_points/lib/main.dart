@@ -59,8 +59,8 @@ class HomeScreen extends StatelessWidget {
             ),
             CustomListTile(Icons.person, 'Profile', () {Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileMenu()),);}),
             CustomListTile(Icons.monetization_on, 'Points', () {Navigator.push(context, MaterialPageRoute(builder: (context) => PointsMenu()),);}),
-            CustomListTile(Icons.comment, 'Trivia', () {Navigator.push(context, MaterialPageRoute(builder: (context) => TriviaMenu()),);}),
-            CustomListTile(Icons.settings, 'Settings', () {Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsMenu()),);}),
+//            CustomListTile(Icons.comment, 'Trivia', () {Navigator.push(context, MaterialPageRoute(builder: (context) => TriviaMenu()),);}),
+//            CustomListTile(Icons.settings, 'Settings', () {Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsMenu()),);}),
           ],
         ),
       ),
@@ -131,15 +131,15 @@ void _checkPoints(BuildContext context) async {
 //    _popAd(context, "Kotłownia", "Udało Ci się! Zdobyłeś 100 punktów!");
 //    userPoints += 100;
 //  }
-  if(abs(pos.latitude - 51.747179 ) < 0.00012 && abs(pos.longitude - 19.453392 ) < 0.00012) {
+  if(abs(pos.latitude - 51.747179 ) < 0.00015 && abs(pos.longitude - 19.453392 ) < 0.00015) {
     _popAd(context, "Brawo", "Udało Ci się znaleźć windę. Zdobyłeś 10 punktów! Czy wiedziałeś, że często się psują?");
     userPoints += 10;
   }
-  if( abs(pos.latitude - 51.747208 ) < 0.00052 && abs(pos.longitude - 19.453742 ) < 0.00052) {
+  if( abs(pos.latitude - 51.747208 ) < 0.00015 && abs(pos.longitude - 19.453742 ) < 0.00015) {
     _popAd(context, "Niemożliwe", "Udało Ci się zobaczyć Lodex => budenek trzech wydziałów! Zdobyłeś 20 punktów!");
     userPoints += 10;
   }
-  if( abs(pos.latitude - 51.747208) < 0.00052 && abs(pos.longitude - 19.453742 ) < 0.00052) {
+  if( abs(pos.latitude - 51.747208) < 0.00015 && abs(pos.longitude - 19.453742 ) < 0.00015) {
     _popAd(context, "Kącik sali.", "Stoisz w kącie! Zdobyłeś 10 punktów!");
     userPoints += 10;
   }
