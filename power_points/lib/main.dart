@@ -9,7 +9,11 @@ void main() => runApp(MyApp());
 
 bool instruction = true;
 int userPoints = 0;
+<<<<<<< HEAD
 String userName = "Jakobo Klepaczczo";
+=======
+String userName = "Jakub Klepacz";
+>>>>>>> Frontend
 
 class MyApp extends StatelessWidget {
   @override
@@ -29,8 +33,11 @@ class HomeScreen extends StatelessWidget {
         backgroundColor: Colors.deepOrange,
       ),
       drawer: Drawer(
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> Frontend
         child: ListView(
           children: <Widget>[
             DrawerHeader(
@@ -54,7 +61,10 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ],
                   ),
+<<<<<<< HEAD
 
+=======
+>>>>>>> Frontend
                 )
             ),
             CustomListTile(Icons.person, 'Profile', () {Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileMenu()),);}),
@@ -64,6 +74,7 @@ class HomeScreen extends StatelessWidget {
           ],
         ),
       ),
+<<<<<<< HEAD
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           _checkPoints(context);
@@ -71,7 +82,25 @@ class HomeScreen extends StatelessWidget {
         child: Icon(Icons.navigation),
         backgroundColor: Colors.deepOrange,
       )
+=======
+      floatingActionButton: Container(
+        height: 60,
+        width: 200,
+        child: FittedBox(
+          child: FloatingActionButton.extended(
+            label: Text("Sprawdź"),
+            onPressed: () {
+              _checkPoints(context);
+            },
+            icon: Icon(Icons.navigation),
+            backgroundColor: Colors.deepOrange,
+          ),
+        ),
+      ),
 
+>>>>>>> Frontend
+
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }
