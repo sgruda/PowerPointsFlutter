@@ -9,11 +9,7 @@ void main() => runApp(MyApp());
 
 bool instruction = true;
 int userPoints = 0;
-<<<<<<< HEAD
-String userName = "Jakobo Klepaczczo";
-=======
-String userName = "Jakub Klepacz";
->>>>>>> Frontend
+String userName = "Jakubo Klepaczoo";
 
 class MyApp extends StatelessWidget {
   @override
@@ -33,11 +29,6 @@ class HomeScreen extends StatelessWidget {
         backgroundColor: Colors.deepOrange,
       ),
       drawer: Drawer(
-<<<<<<< HEAD
-
-
-=======
->>>>>>> Frontend
         child: ListView(
           children: <Widget>[
             DrawerHeader(
@@ -61,10 +52,6 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-<<<<<<< HEAD
-
-=======
->>>>>>> Frontend
                 )
             ),
             CustomListTile(Icons.person, 'Profile', () {Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileMenu()),);}),
@@ -74,15 +61,6 @@ class HomeScreen extends StatelessWidget {
           ],
         ),
       ),
-<<<<<<< HEAD
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          _checkPoints(context);
-        },
-        child: Icon(Icons.navigation),
-        backgroundColor: Colors.deepOrange,
-      )
-=======
       floatingActionButton: Container(
         height: 60,
         width: 200,
@@ -98,7 +76,6 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
 
->>>>>>> Frontend
 
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
@@ -214,30 +191,30 @@ class PointsMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Points"),
-        backgroundColor: Colors.deepOrange,
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Center(child: Text("Number of points", style: TextStyle(fontSize: 35),)),
-            SizedBox(height: 30,),
-            Center(
-                child:CircleAvatar(
-                  radius: 60,
-                  backgroundColor: Colors.deepOrange,
-                  child: CircleAvatar(
-                    radius: 55,
-                    backgroundColor: Colors.white,
-                    child: Text(userPoints.toString(), style: TextStyle(fontSize: 50, color: Colors.black))),
-              )
-            )
-          ],
+        appBar: AppBar(
+          title: Text("Points"),
+          backgroundColor: Colors.deepOrange,
         ),
-      )
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Center(child: Text("Number of points", style: TextStyle(fontSize: 35),)),
+              SizedBox(height: 30,),
+              Center(
+                  child:CircleAvatar(
+                    radius: 60,
+                    backgroundColor: Colors.deepOrange,
+                    child: CircleAvatar(
+                        radius: 55,
+                        backgroundColor: Colors.white,
+                        child: Text(userPoints.toString(), style: TextStyle(fontSize: 50, color: Colors.black))),
+                  )
+              )
+            ],
+          ),
+        )
     );
   }
 }
