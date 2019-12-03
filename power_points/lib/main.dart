@@ -56,6 +56,7 @@ class HomeScreen extends StatelessWidget {
             ),
             CustomListTile(Icons.person, 'Profile', () {Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileMenu()),);}),
             CustomListTile(Icons.monetization_on, 'Points', () {Navigator.push(context, MaterialPageRoute(builder: (context) => PointsMenu()),);}),
+            CustomListTile(Icons.confirmation_number, 'Coupons', () {Navigator.push(context, MaterialPageRoute(builder: (context) => CouponsMenu()),);}),
 //            CustomListTile(Icons.comment, 'Trivia', () {Navigator.push(context, MaterialPageRoute(builder: (context) => TriviaMenu()),);}),
 //            CustomListTile(Icons.settings, 'Settings', () {Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsMenu()),);}),
           ],
@@ -70,13 +71,11 @@ class HomeScreen extends StatelessWidget {
             onPressed: () {
               _checkPoints(context);
             },
-            icon: Icon(Icons.navigation),
+            icon: Icon(Icons.camera),
             backgroundColor: Colors.deepOrange,
           ),
         ),
       ),
-
-
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
@@ -257,6 +256,54 @@ class SettingsMenu extends StatelessWidget {
       ),
     );
   }
+}
+
+class CouponsMenu extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Coupons"),
+        backgroundColor: Colors.deepOrange,
+      ),
+      body: Center(
+        child: Container(
+          child: _myListView(context),
+
+        ),
+      ),
+    );
+  }
+}
+
+class Coupon {
+  String title;
+  AssetImage image;
+  int price;
+  String description;
+
+  Coupon(this.title, this.image, this.price, this.description);
+}
+
+Widget _myListView(BuildContext context) {
+
+  final coupons = [Coupon('Piwo', AssetImage('assets/piwo.jpg'), 30, 'Kup dwa piwa w cenie jednego i kolejne otrzymaj gratis! :0')];
+
+  return ListView.builder(
+    itemCount: coupons.length,
+    itemBuilder: (context, index) {
+      return Card( //                           <-- Card widget
+        child: ListTile(
+          leading: CircleAvatar(
+            backgroundImage: coupons[index].image,
+          ),
+          title: Text(coupons[index].title),
+          subtitle: Text(coupons[index].description),
+        ),
+      );
+    },
+  );
+
 }
 
 class CustomListTile extends StatelessWidget{
