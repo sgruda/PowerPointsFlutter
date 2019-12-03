@@ -4,6 +4,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:geoflutterfire/geoflutterfire.dart';
 import 'dart:async';
+import 'Markers.dart';
 
 void main() => runApp(MyApp());
 
@@ -137,9 +138,9 @@ void _checkPoints(BuildContext context) async {
 //    _popAd(context, "Kotłownia", "Udało Ci się! Zdobyłeś 100 punktów!");
 //    userPoints += 100;
 //  }
-  if(abs(pos.latitude - 51.747179 ) < 0.00015 && abs(pos.longitude - 19.453392 ) < 0.00015) {
-    _popAd(context, "Brawo", "Udało Ci się znaleźć windę. Zdobyłeś 10 punktów! Czy wiedziałeś, że często się psują?");
-    userPoints += 10;
+  if(abs(pos.latitude - Markers.markers["1"].markerLatitude ) < 0.00015 && abs(pos.longitude - Markers.markers["1"].markerLongitude ) < 0.00015) {
+    _popAd(context, Markers.markers["1"].markerTitleAfterCheck, Markers.markers["1"].markerDescriptionAfterCheck);
+    userPoints += Markers.markers["1"].points;
   }
   if( abs(pos.latitude - 51.747208 ) < 0.00015 && abs(pos.longitude - 19.453742 ) < 0.00015) {
     _popAd(context, "Niemożliwe", "Udało Ci się zobaczyć Lodex => budenek trzech wydziałów! Zdobyłeś 20 punktów!");
@@ -353,10 +354,10 @@ class FireMapState extends State<FireMap> {
   }
   void _addMarkers(GoogleMapController controller) {
     var marker = MarkerOptions(
-        position: LatLng(51.747179, 19.453392),                                       //Polibuda
+        position: LatLng(Markers.markers["1"].markerLatitude, Markers.markers["1"].markerLongitude),                                       //Polibuda
 //        position: LatLng(51.589825, 19.158243),                                     //Home
         icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueAzure),
-        infoWindowText: InfoWindowText("O winda!","")
+        infoWindowText: InfoWindowText(Markers.markers["1"].markerTitle, Markers.markers["1"].markerDescription)
     );
     controller.addMarker(marker);
     var marker2 = MarkerOptions(
