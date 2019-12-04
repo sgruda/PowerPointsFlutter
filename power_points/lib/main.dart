@@ -138,7 +138,7 @@ void _checkPoints(BuildContext context) async {
 //    _popAd(context, "Kotłownia", "Udało Ci się! Zdobyłeś 100 punktów!");
 //    userPoints += 100;
 //  }
-  if(abs(pos.latitude - Markers.markers["1"].markerLatitude ) < 0.00015 && abs(pos.longitude - Markers.markers["1"].markerLongitude ) < 0.00015) {
+  /*if(abs(pos.latitude - Markers.markers["1"].markerLatitude ) < 0.00015 && abs(pos.longitude - Markers.markers["1"].markerLongitude ) < 0.00015) {
     _popAd(context, Markers.markers["1"].markerTitleAfterCheck, Markers.markers["1"].markerDescriptionAfterCheck);
     userPoints += Markers.markers["1"].points;
   }
@@ -149,6 +149,14 @@ void _checkPoints(BuildContext context) async {
   if( abs(pos.latitude - 51.747208) < 0.00015 && abs(pos.longitude - 19.453742 ) < 0.00015) {
     _popAd(context, "Kącik sali.", "Stoisz w kącie! Zdobyłeś 10 punktów!");
     userPoints += 10;
+  }*/
+  for(int i = 0 ; i < Markers.markers.length; i++) {
+    if (abs(pos.latitude - Markers.markers[i].markerLatitude) < 0.00015 &&
+        abs(pos.longitude - Markers.markers[i].markerLongitude) < 0.00015) {
+      _popAd(context, Markers.markers[i].markerTitleAfterCheck,
+          Markers.markers[i].markerDescriptionAfterCheck);
+      userPoints += Markers.markers[i].points;
+    }
   }
 }
 class ProfileMenu extends StatelessWidget {
@@ -353,7 +361,7 @@ class FireMapState extends State<FireMap> {
     );
   }
   void _addMarkers(GoogleMapController controller) {
-    var marker = MarkerOptions(
+/*    var marker = MarkerOptions(
         position: LatLng(Markers.markers["1"].markerLatitude, Markers.markers["1"].markerLongitude),                                       //Polibuda
 //        position: LatLng(51.589825, 19.158243),                                     //Home
         icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueAzure),
@@ -374,7 +382,16 @@ class FireMapState extends State<FireMap> {
         infoWindowText: InfoWindowText("Lodex","")
     );
     controller.addMarker(marker3);
-
+*/
+    for(int i = 0 ; i < Markers.markers.length; i++) {
+      var marker = MarkerOptions(
+          position: LatLng(Markers.markers[i].markerLatitude, Markers.markers[i].markerLongitude),                                       //Polibuda
+//        position: LatLng(51.589825, 19.158243),                                     //Home
+          icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueAzure),
+          infoWindowText: InfoWindowText(Markers.markers[i].markerTitle, Markers.markers[i].markerDescription)
+      );
+      controller.addMarker(marker);
+    }
   }
 //  void _checkPoints() async {
 //    var location = new Location();
