@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart' as prefix0;
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
@@ -276,18 +277,95 @@ class CouponsMenu extends StatelessWidget {
   }
 }
 
+class CouponMenu extends StatelessWidget {
+  Coupon coupon;
+
+  CouponMenu(this.coupon)
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        constraints: BoxConstraints.expand(),
+        color: Colors.white,
+        child: Stack(
+          children: <Widget>[
+            getBackground(),
+            getGradient(),
+            getContent(),
+          ],
+        ),
+      ),
+    );
+  }
+  Container getBackground() {
+    return new Container(
+      child: new Image.asset(
+        coupon.imagePath,
+        fit: BoxFit.cover,
+        height: 300.0,
+      ),
+     constraints: new BoxConstraints.expand(height: 300.0),
+    );
+  }
+  Container getGradient() {
+    return Container(
+      margin:  EdgeInsets.only(top: 190.0),
+      height: 200.0,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: <Color>[
+            Colors.transparent,
+            Colors.white
+        ],
+            stops:  [0.0, 0.5],
+            begin: const FractionalOffset(0.0, 0.0),
+            end: const FractionalOffset(0.0, 0.9),
+        ),
+      ),
+    );
+  }
+  Widget getContent(){
+    return ListView(
+      padding: EdgeInsets.fromLTRB(0.0, 72.0, 0.0, 32.0),
+      children: <Widget>[
+
+      ],
+    );
+  }
+
+
+
+}
+
+class CouponSummary extends StatelessWidget {
+  Coupon coupon;
+  CouponSummary(this.coupon)
+
+
+  couponCardContent = Container(
+
+      )
+
+
+}
+
 class Coupon {
   String title;
-  AssetImage image;
+  String imagePath;
   int price;
   String description;
 
-  Coupon(this.title, this.image, this.price, this.description);
+  Coupon(this.title, this.imagePath, this.price, this.description);
 }
 
 Widget _myListView(BuildContext context) {
 
-  final coupons = [Coupon('Piwo', AssetImage('assets/piwo.jpg'), 30, 'Kup dwa piwa w cenie jednego i kolejne otrzymaj gratis! :0')];
+  final coupons = [
+    Coupon('Piwo', 'assets/piwo.jpg', 30, 'Kup dwa piwa w cenie jednego i kolejne otrzymaj gratis! :0'),
+    Coupon('Skreślenie z listy studentów', 'assets/zaliczenie.jpg', 20, 'Pokaż rektorowi ten kupon i skończ studia wcześniej niż twoi rówieśnicy!'),
+    Coupon('Zabieg dentystyczny', 'assets/slav.jpg', 30, 'Pokaż ten kupon dresowi, a otrzymasz darmowe prostowanie zębów.')
+  ];
 
   return ListView.builder(
     itemCount: coupons.length,
@@ -295,10 +373,11 @@ Widget _myListView(BuildContext context) {
       return Card( //                           <-- Card widget
         child: ListTile(
           leading: CircleAvatar(
-            backgroundImage: coupons[index].image,
+            backgroundImage: AssetImage(coupons[index].imagePath),
           ),
           title: Text(coupons[index].title),
-          subtitle: Text(coupons[index].description),
+          subtitle: Text("Cena: " + coupons[index].price.toString()),
+          onTap: () {Navigator.push(context, MaterialPageRoute(builder: (context) => CouponMenu(coupons[index])),);},
         ),
       );
     },
