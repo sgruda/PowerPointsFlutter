@@ -280,7 +280,7 @@ class CouponsMenu extends StatelessWidget {
 class CouponMenu extends StatelessWidget {
   Coupon coupon;
 
-  CouponMenu(this.coupon)
+  CouponMenu(this.coupon);
 
   @override
   Widget build(BuildContext context) {
@@ -293,6 +293,7 @@ class CouponMenu extends StatelessWidget {
             getBackground(),
             getGradient(),
             getContent(),
+            getToolbar(context),
           ],
         ),
       ),
@@ -303,20 +304,20 @@ class CouponMenu extends StatelessWidget {
       child: new Image.asset(
         coupon.imagePath,
         fit: BoxFit.cover,
-        height: 300.0,
+        height: 200.0,
       ),
-     constraints: new BoxConstraints.expand(height: 300.0),
+     constraints: new BoxConstraints.expand(height: 200.0),
     );
   }
   Container getGradient() {
     return Container(
-      margin:  EdgeInsets.only(top: 190.0),
+      margin:  EdgeInsets.only(top: 90.0),
       height: 200.0,
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: <Color>[
             Colors.transparent,
-            Colors.white
+            Colors.white,
         ],
             stops:  [0.0, 0.5],
             begin: const FractionalOffset(0.0, 0.0),
@@ -326,29 +327,82 @@ class CouponMenu extends StatelessWidget {
     );
   }
   Widget getContent(){
-    return ListView(
-      padding: EdgeInsets.fromLTRB(0.0, 72.0, 0.0, 32.0),
+    return Column(
       children: <Widget>[
+        Padding(
+          padding: EdgeInsets.fromLTRB(0, 140, 0, 0),
+          child: Center(
+            child: Container(
+              height: 100,
+              width: 300,
+              decoration: BoxDecoration(
+                color: Colors.deepOrange,
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: Center(
+                child: Text(
+                  coupon.title,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 30,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.fromLTRB(0, 40, 0, 0),
+          child: Container(
+            child: Text(
+              'OPIS',
+              textAlign: TextAlign.left,
+              style: TextStyle(fontSize: 40),
+            ),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.fromLTRB(30, 10, 30, 0),
+          child: Container(
+            height: 240,
+            decoration: BoxDecoration(
+              color: Colors.grey[300],
+              borderRadius: BorderRadius.circular(20)
 
+            ),
+            child: ListView(
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
+                  child: Text(
+                    coupon.description,
+                    style: TextStyle(
+                      fontSize: 23,
+                    ),
+                  ),
+                )
+              ],
+            )
+          ),
+        )
       ],
     );
   }
-
-
-
 }
 
-class CouponSummary extends StatelessWidget {
-  Coupon coupon;
-  CouponSummary(this.coupon)
-
-
-  couponCardContent = Container(
-
-      )
-
-
+Container getToolbar(BuildContext context) {
+  return Container(
+    margin: EdgeInsets.only(
+      top: MediaQuery
+          .of(context)
+          .padding
+          .top),
+    child: BackButton(color: Colors.white,),
+  );
 }
+
+
 
 class Coupon {
   String title;
@@ -363,14 +417,14 @@ Widget _myListView(BuildContext context) {
 
   final coupons = [
     Coupon('Piwo', 'assets/piwo.jpg', 30, 'Kup dwa piwa w cenie jednego i kolejne otrzymaj gratis! :0'),
-    Coupon('Skreślenie z listy studentów', 'assets/zaliczenie.jpg', 20, 'Pokaż rektorowi ten kupon i skończ studia wcześniej niż twoi rówieśnicy!'),
+    Coupon('Ukończenie studiów', 'assets/zaliczenie.jpg', 20, 'Pokaż rektorowi ten kupon i skończ studia wcześniej niż twoi rówieśnicy! AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'),
     Coupon('Zabieg dentystyczny', 'assets/slav.jpg', 30, 'Pokaż ten kupon dresowi, a otrzymasz darmowe prostowanie zębów.')
   ];
 
   return ListView.builder(
     itemCount: coupons.length,
     itemBuilder: (context, index) {
-      return Card( //                           <-- Card widget
+      return Card(
         child: ListTile(
           leading: CircleAvatar(
             backgroundImage: AssetImage(coupons[index].imagePath),
