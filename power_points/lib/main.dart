@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart' as prefix0;
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
@@ -57,6 +58,7 @@ class HomeScreen extends StatelessWidget {
             ),
             CustomListTile(Icons.person, 'Profile', () {Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileMenu()),);}),
             CustomListTile(Icons.monetization_on, 'Points', () {Navigator.push(context, MaterialPageRoute(builder: (context) => PointsMenu()),);}),
+            CustomListTile(Icons.confirmation_number, 'Coupons', () {Navigator.push(context, MaterialPageRoute(builder: (context) => CouponsMenu()),);}),
 //            CustomListTile(Icons.comment, 'Trivia', () {Navigator.push(context, MaterialPageRoute(builder: (context) => TriviaMenu()),);}),
 //            CustomListTile(Icons.settings, 'Settings', () {Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsMenu()),);}),
           ],
@@ -71,13 +73,11 @@ class HomeScreen extends StatelessWidget {
             onPressed: () {
               _checkPoints(context);
             },
-            icon: Icon(Icons.navigation),
+            icon: Icon(Icons.camera),
             backgroundColor: Colors.deepOrange,
           ),
         ),
       ),
-
-
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
@@ -266,6 +266,186 @@ class SettingsMenu extends StatelessWidget {
       ),
     );
   }
+}
+
+class CouponsMenu extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Coupons"),
+        backgroundColor: Colors.deepOrange,
+      ),
+      body: Center(
+        child: Container(
+          child: _myListView(context),
+
+        ),
+      ),
+    );
+  }
+}
+
+class CouponMenu extends StatelessWidget {
+  Coupon coupon;
+
+  CouponMenu(this.coupon);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        constraints: BoxConstraints.expand(),
+        color: Colors.white,
+        child: Stack(
+          children: <Widget>[
+            getBackground(),
+            getGradient(),
+            getContent(),
+            getToolbar(context),
+          ],
+        ),
+      ),
+    );
+  }
+  Container getBackground() {
+    return new Container(
+      child: new Image.asset(
+        coupon.imagePath,
+        fit: BoxFit.cover,
+        height: 200.0,
+      ),
+     constraints: new BoxConstraints.expand(height: 200.0),
+    );
+  }
+  Container getGradient() {
+    return Container(
+      margin:  EdgeInsets.only(top: 90.0),
+      height: 200.0,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: <Color>[
+            Colors.transparent,
+            Colors.white,
+        ],
+            stops:  [0.0, 0.5],
+            begin: const FractionalOffset(0.0, 0.0),
+            end: const FractionalOffset(0.0, 0.9),
+        ),
+      ),
+    );
+  }
+  Widget getContent(){
+    return Column(
+      children: <Widget>[
+        Padding(
+          padding: EdgeInsets.fromLTRB(0, 140, 0, 0),
+          child: Center(
+            child: Container(
+              height: 100,
+              width: 300,
+              decoration: BoxDecoration(
+                color: Colors.deepOrange,
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: Center(
+                child: Text(
+                  coupon.title,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 30,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.fromLTRB(0, 40, 0, 0),
+          child: Container(
+            child: Text(
+              'OPIS',
+              textAlign: TextAlign.left,
+              style: TextStyle(fontSize: 40),
+            ),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.fromLTRB(30, 10, 30, 0),
+          child: Container(
+            height: 240,
+            decoration: BoxDecoration(
+              color: Colors.grey[300],
+              borderRadius: BorderRadius.circular(20)
+
+            ),
+            child: ListView(
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
+                  child: Text(
+                    coupon.description,
+                    style: TextStyle(
+                      fontSize: 23,
+                    ),
+                  ),
+                )
+              ],
+            )
+          ),
+        )
+      ],
+    );
+  }
+}
+
+Container getToolbar(BuildContext context) {
+  return Container(
+    margin: EdgeInsets.only(
+      top: MediaQuery
+          .of(context)
+          .padding
+          .top),
+    child: BackButton(color: Colors.white,),
+  );
+}
+
+
+
+class Coupon {
+  String title;
+  String imagePath;
+  int price;
+  String description;
+
+  Coupon(this.title, this.imagePath, this.price, this.description);
+}
+
+Widget _myListView(BuildContext context) {
+
+  final coupons = [
+    Coupon('Piwo', 'assets/piwo.jpg', 30, 'Kup dwa piwa w cenie jednego i kolejne otrzymaj gratis! :0'),
+    Coupon('Ukończenie studiów', 'assets/zaliczenie.jpg', 20, 'Pokaż rektorowi ten kupon i skończ studia wcześniej niż twoi rówieśnicy! AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'),
+    Coupon('Zabieg dentystyczny', 'assets/slav.jpg', 30, 'Pokaż ten kupon dresowi, a otrzymasz darmowe prostowanie zębów.')
+  ];
+
+  return ListView.builder(
+    itemCount: coupons.length,
+    itemBuilder: (context, index) {
+      return Card(
+        child: ListTile(
+          leading: CircleAvatar(
+            backgroundImage: AssetImage(coupons[index].imagePath),
+          ),
+          title: Text(coupons[index].title),
+          subtitle: Text("Cena: " + coupons[index].price.toString()),
+          onTap: () {Navigator.push(context, MaterialPageRoute(builder: (context) => CouponMenu(coupons[index])),);},
+        ),
+      );
+    },
+  );
+
 }
 
 class CustomListTile extends StatelessWidget{
