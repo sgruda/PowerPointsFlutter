@@ -304,14 +304,14 @@ class CouponMenu extends StatelessWidget {
       child: new Image.asset(
         coupon.imagePath,
         fit: BoxFit.cover,
-        height: 200.0,
+        height: 300.0,
       ),
-     constraints: new BoxConstraints.expand(height: 200.0),
+     constraints: new BoxConstraints.expand(height: 300.0),
     );
   }
   Container getGradient() {
     return Container(
-      margin:  EdgeInsets.only(top: 90.0),
+      margin:  EdgeInsets.only(top: 190.0),
       height: 200.0,
       decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -330,7 +330,7 @@ class CouponMenu extends StatelessWidget {
     return Column(
       children: <Widget>[
         Padding(
-          padding: EdgeInsets.fromLTRB(0, 140, 0, 0),
+          padding: EdgeInsets.fromLTRB(0, 200, 0, 0),
           child: Center(
             child: Container(
               height: 100,
@@ -341,7 +341,7 @@ class CouponMenu extends StatelessWidget {
               ),
               child: Center(
                 child: Text(
-                  coupon.title,
+                  "Kup",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Colors.white,
@@ -353,19 +353,19 @@ class CouponMenu extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: EdgeInsets.fromLTRB(0, 40, 0, 0),
+          padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
           child: Container(
             child: Text(
-              'OPIS',
+              coupon.title,
               textAlign: TextAlign.left,
               style: TextStyle(fontSize: 40),
             ),
           ),
         ),
         Padding(
-          padding: EdgeInsets.fromLTRB(30, 10, 30, 0),
+          padding: EdgeInsets.fromLTRB(50, 10, 50, 0),
           child: Container(
-            height: 240,
+            height: 180,
             decoration: BoxDecoration(
               color: Colors.grey[300],
               borderRadius: BorderRadius.circular(20)
@@ -378,7 +378,7 @@ class CouponMenu extends StatelessWidget {
                   child: Text(
                     coupon.description,
                     style: TextStyle(
-                      fontSize: 23,
+                      fontSize: 20,
                     ),
                   ),
                 )
