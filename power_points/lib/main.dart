@@ -116,38 +116,6 @@ void _checkPoints(BuildContext context) async {
     _popAd(context, "Dziękujemy za pobranie aplikacji.", "Idź w świat i poznawaj kampus, przy okazji zbieraj punkty (klikając przy chodzeniu) i wymieniej je na piwo ;)");
     instruction = false;
   }
-//  if(abs(pos.latitude - 51.589825 ) < 0.00012 && abs(pos.longitude - 19.158243 ) < 0.00012) {
-//    _popAd(context, "Brawo", "Udało Ci się! Zdobyłeś 100 punktów!");
-//    userPoints += 100;
-//  }
-//  if( abs(pos.latitude - 51.590552 ) < 0.00052 && abs(pos.longitude - 19.158772 ) < 0.00052) {
-//    _popAd(context, "Niemożliwe", "Udało Ci się! Zdobyłeś 100 punktów!");
-//    userPoints += 100;
-//  }
-//  if( abs(pos.latitude - 51.590969) < 0.00052 && abs(pos.longitude - 19.159729 ) < 0.00052) {
-//    _popAd(context, "Zabka", "Udało Ci się! Zdobyłeś 100 punktów!");
-//    userPoints += 100;
-//  }
-//  if( abs(pos.latitude - 51.590459 ) < 0.00052 && abs(pos.longitude - 19.160708 ) < 0.00052) {
-//    _popAd(context, "łaka", "Udało Ci się! Zdobyłeś 100 punktów!");
-//    userPoints += 100;
-//  }
-//  if( abs(pos.latitude - 51.589092 ) < 0.00052 && abs(pos.longitude - 19.158801 ) < 0.00052) {
-//    _popAd(context, "Kotłownia", "Udało Ci się! Zdobyłeś 100 punktów!");
-//    userPoints += 100;
-//  }
-  /*if(abs(pos.latitude - Markers.markers["1"].markerLatitude ) < 0.00015 && abs(pos.longitude - Markers.markers["1"].markerLongitude ) < 0.00015) {
-    _popAd(context, Markers.markers["1"].markerTitleAfterCheck, Markers.markers["1"].markerDescriptionAfterCheck);
-    userPoints += Markers.markers["1"].points;
-  }
-  if( abs(pos.latitude - 51.747208 ) < 0.00015 && abs(pos.longitude - 19.453742 ) < 0.00015) {
-    _popAd(context, "Niemożliwe", "Udało Ci się zobaczyć Lodex => budenek trzech wydziałów! Zdobyłeś 20 punktów!");
-    userPoints += 10;
-  }
-  if( abs(pos.latitude - 51.747208) < 0.00015 && abs(pos.longitude - 19.453742 ) < 0.00015) {
-    _popAd(context, "Kącik sali.", "Stoisz w kącie! Zdobyłeś 10 punktów!");
-    userPoints += 10;
-  }*/
   for(int i = 0 ; i < Markers.markers.length; i++) {
     if (abs(pos.latitude - Markers.markers[i].markerLatitude) < 0.00015 &&
         abs(pos.longitude - Markers.markers[i].markerLongitude) < 0.00015) {
@@ -205,28 +173,6 @@ class FireMapState extends State<FireMap> {
     );
   }
   void _addMarkers(GoogleMapController controller) {
-/*    var marker = MarkerOptions(
-        position: LatLng(Markers.markers["1"].markerLatitude, Markers.markers["1"].markerLongitude),                                       //Polibuda
-//        position: LatLng(51.589825, 19.158243),                                     //Home
-        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueAzure),
-        infoWindowText: InfoWindowText(Markers.markers["1"].markerTitle, Markers.markers["1"].markerDescription)
-    );
-    controller.addMarker(marker);
-    var marker2 = MarkerOptions(
-        position: LatLng(51.747201, 19.452759),                                       //Polibuda
-//        position: LatLng(51.590552, 19.158772),                                     //Home
-        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueAzure),
-        infoWindowText: InfoWindowText("Kącik.","")
-    );
-    controller.addMarker(marker2);
-    var marker3 = MarkerOptions(
-        position: LatLng(51.747208, 19.453742),                                       //Polibuda
-//        position: LatLng(51.590969, 19.159729),                                     //Home
-        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueAzure),
-        infoWindowText: InfoWindowText("Lodex","")
-    );
-    controller.addMarker(marker3);
-*/
     for(int i = 0 ; i < Markers.markers.length; i++) {
       var marker = MarkerOptions(
           position: LatLng(Markers.markers[i].markerLatitude, Markers.markers[i].markerLongitude),                                       //Polibuda
@@ -237,74 +183,4 @@ class FireMapState extends State<FireMap> {
       controller.addMarker(marker);
     }
   }
-//  void _checkPoints() async {
-//    var location = new Location();
-//    var pos = await location.getLocation();
-//    if(instruction) {
-//      setState(() {
-//        _popAd(context, "Dziękujemy za pobranie aplikacji.", "Idź w świat i poznawaj kampus, przy okazji zbieraj punkty i wymieniej je na piwo ;)");
-//      });
-//      instruction = false;
-//    }
-//    if( abs(pos.latitude - 51.589825 ) < 0.00012 && abs(pos.longitude - 19.158243 ) < 0.00012) {
-//      setState(() {
-//        _popAd(context, "Brawo", "Udało Ci się! Zdobyłeś 100 punktów!");
-//      });
-//      userPoints += 100;
-//    }
-//    if( abs(pos.latitude - 51.590552 ) < 0.00052 && abs(pos.longitude - 19.158772 ) < 0.00052) {
-//      setState(() {
-//        _popAd(context, "Niemożliwe", "Udało Ci się! Zdobyłeś 100 punktów!");
-//      });
-//      userPoints += 100;
-//    }
-//    if( abs(pos.latitude - 51.590969) < 0.00052 && abs(pos.longitude - 19.159729 ) < 0.00052) {
-//      setState(() {
-//        _popAd(context, "Zabka", "Udało Ci się! Zdobyłeś 100 punktów!");
-//      });
-//      userPoints += 100;
-//    }
-//    if( abs(pos.latitude - 51.590459 ) < 0.00052 && abs(pos.longitude - 19.160708 ) < 0.00052) {
-//      setState(() {
-//        _popAd(context, "łaka", "Udało Ci się! Zdobyłeś 100 punktów!");
-//      });
-//      userPoints += 100;
-//    }
-//    if( abs(pos.latitude - 51.589092 ) < 0.00052 && abs(pos.longitude - 19.158801 ) < 0.00052) {
-//      setState(() {
-//        _popAd(context, "Kotłownia", "Udało Ci się! Zdobyłeś 100 punktów!");
-//      });
-//      userPoints += 100;
-//    }
-//
-//  }
-//  double abs(double x) {
-//    return x < 0 ? -x : x;
-//  }
-//  Future<void> _popAd(BuildContext context, String title, String text) async {
-//    return showDialog<void>(
-//      context: context,
-//      barrierDismissible: false, // user must tap button!
-//      builder: (BuildContext context) {
-//        return AlertDialog(
-//          title: Text(title),
-//          content: SingleChildScrollView(
-//            child: ListBody(
-//              children: <Widget>[
-//                Text(text),
-//              ],
-//            ),
-//          ),
-//          actions: <Widget>[
-//            FlatButton(
-//              child: Text('OK'),
-//              onPressed: () {
-//                Navigator.of(context).pop();
-//              },
-//            ),
-//          ],
-//        );
-//      },
-//    );
-//  }
 }
