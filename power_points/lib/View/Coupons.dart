@@ -23,11 +23,27 @@ class CouponsMenu extends StatelessWidget {
   }
 }
 
-class CouponCard extends StatelessWidget{
+class CouponCard extends StatefulWidget {
   Coupon coupon;
-  int index;
 
-  CouponCard(this.coupon, this.index);
+  CouponCard(this.coupon);
+
+  @override
+  State<StatefulWidget> createState() {
+    return CouponCardState();
+  }
+
+}
+
+class CouponCardState extends State<CouponCard>{
+  Coupon coupon;
+  bool isTapped = false;
+
+  @override
+  void initState(){
+    coupon = widget.coupon;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,53 +58,65 @@ class CouponCard extends StatelessWidget{
       backgroundColor: Colors.grey[100],
       body: Stack(
           children: <Widget>[
-            Hero(
-              tag: "couponDash$index",
-              child: Container(
-                margin: EdgeInsets.fromLTRB(40, 20, 40, 120),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  image: DecorationImage(
-                    image: AssetImage(coupon.imagePath),
-                    fit: BoxFit.cover
-                  )
-                ),
+            Container(
+              margin: EdgeInsets.fromLTRB(40, 20, 40, 120),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                image: DecorationImage(
+                  image: AssetImage(coupon.imagePath),
+                  fit: BoxFit.cover
+                )
               ),
             ),
-            Center(
-              child: Container(
-                padding: EdgeInsets.all(15.0),
-                margin: EdgeInsets.fromLTRB(0, 250, 0, 0),
-                height: 90,
-                width: 240,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
-                    BoxShadow(
-                      blurRadius: 40.0,
-                      color: Colors.black12,
-                      spreadRadius: 5.0
-                    )
-                  ]
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    AutoSizeText(
-                      coupon.title,
-                      style: TextStyle(fontSize: 20),
-                      maxLines: 1,
+            InkWell(
+              onTap: () {
+                setState(() {
+                  isTapped = !isTapped;
+                });
+              },
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(0, 0, 0, 100),
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: AnimatedContainer(
+                    duration: Duration(milliseconds: 400),
+                    curve: Curves.decelerate,
+                    padding: EdgeInsets.all(15.0),
+                    height: isTapped ? 300 : 70,
+                    width: isTapped ? 240 : 220,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: isTapped ? BorderRadius.circular(20) : BorderRadius.circular(10),
+                      boxShadow: [
+                        BoxShadow(
+                          blurRadius: 40.0,
+                          color: Colors.black12,
+                          spreadRadius: 5.0
+                        )
+                      ]
                     ),
-                    Padding(padding: EdgeInsets.fromLTRB(0, 5, 0, 0),),
-                    AutoSizeText(
-                      "Cena: " + coupon.price.toString(),
-                      maxLines: 1,
-                    )
-                  ],
+                    child: ListView(
+                      children: <Widget>[
+                        AutoSizeText(
+                          coupon.title,
+                          style: TextStyle(fontSize: 20),
+                          maxLines: 1,
+                        ),
+                        AutoSizeText(
+                          "Cena: " + coupon.price.toString(),
+                          style: TextStyle(fontSize: 10),
+                          maxLines: 1,
+                        ),
+                        Padding(padding: EdgeInsets.fromLTRB(0, 20, 0, 0),),
+                        AutoSizeText(
+                          coupon.description,
+                        )
+                      ],
+                    ),
+                  ),
                 ),
               ),
+
             ),
           ]
         ),
@@ -122,7 +150,7 @@ Widget _myListView(BuildContext context) {
 
   final coupons = [
     Coupon('Piwo','assets/piwo_low.jpg', 'assets/piwo.jpg', 30, 'Kup dwa piwa w cenie jednego i kolejne otrzymaj gratis! :0'),
-    Coupon('Ukończenie studiów', 'assets/zaliczenie_low.jpg', 'assets/zaliczenie.jpg', 20, 'Pokaż rektorowi ten kupon i skończ studia wcześniej niż twoi rówieśnicy! AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'),
+    Coupon('Ukończenie studiów', 'assets/zaliczenie_low.jpg', 'assets/zaliczenie.jpg', 20, 'Pokaż rektorowi ten kupon i skończ studia wcześniej niż twoi rówieśnicy!'),
     Coupon('Zabieg dentystyczny', 'assets/slav.jpg', 'assets/slav.jpg', 30, 'Pokaż ten kupon dresowi, a otrzymasz darmowe prostowanie zębów.')
   ];
 
@@ -135,18 +163,15 @@ Widget _myListView(BuildContext context) {
             borderRadius: BorderRadius.circular(20)
           ),
           child: ListTile(
-            leading: Hero(
-              tag: "couponDash$index",
-              child: Container(
-                height: 50,
-                width: 50,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  image: DecorationImage(
-                    image: AssetImage(coupons[index].imagePath),
-                    fit: BoxFit.cover
-                  )
-                ),
+            leading: Container(
+              height: 50,
+              width: 50,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                image: DecorationImage(
+                  image: AssetImage(coupons[index].imagePath),
+                  fit: BoxFit.cover
+                )
               ),
             ),
             title: Text(coupons[index].title),
@@ -155,7 +180,7 @@ Widget _myListView(BuildContext context) {
             onTap: () {Navigator.push(
                 context,
                 PageRouteBuilder(
-                    pageBuilder: (_, __, ___) => CouponCard(coupons[index], index),
+                    pageBuilder: (_, __, ___) => CouponCard(coupons[index]),
                     transitionDuration: Duration(milliseconds: 500)),
           );},
         ),
