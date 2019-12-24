@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter_base/Model/Constans.dart';
 
 class CouponsMenu extends StatelessWidget {
   @override
@@ -7,173 +9,155 @@ class CouponsMenu extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("Coupons"),
+        actions: <Widget>[
+          Text("Punkty: " + userPoints.toString())
+        ],
         backgroundColor: Colors.deepOrange,
       ),
       body: Center(
         child: Container(
           child: _myListView(context),
-
         ),
       ),
     );
   }
 }
 
-class CouponMenu extends StatelessWidget {
+class CouponCard extends StatelessWidget{
   Coupon coupon;
+  int index;
 
-  CouponMenu(this.coupon);
+  CouponCard(this.coupon, this.index);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        constraints: BoxConstraints.expand(),
-        color: Colors.white,
-        child: Stack(
+      appBar: AppBar(
+        title: Text("Coupons"),
+        actions: <Widget>[
+          Text("Punkty: " + userPoints.toString())
+        ],
+        backgroundColor: Colors.deepOrange,
+      ),
+      backgroundColor: Colors.grey[100],
+      body: Stack(
           children: <Widget>[
-            getBackground(),
-            getGradient(),
-            getContent(),
-            getToolbar(context),
-          ],
-        ),
-      ),
-    );
-  }
-  Container getBackground() {
-    return new Container(
-      child: new Image.asset(
-        coupon.imagePath,
-        fit: BoxFit.cover,
-        height: 300.0,
-      ),
-      constraints: new BoxConstraints.expand(height: 300.0),
-    );
-  }
-  Container getGradient() {
-    return Container(
-      margin:  EdgeInsets.only(top: 190.0),
-      height: 200.0,
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: <Color>[
-            Colors.transparent,
-            Colors.white,
-          ],
-          stops:  [0.0, 0.5],
-          begin: const FractionalOffset(0.0, 0.0),
-          end: const FractionalOffset(0.0, 0.9),
-        ),
-      ),
-    );
-  }
-  Widget getContent(){
-    return Column(
-      children: <Widget>[
-        Padding(
-          padding: EdgeInsets.fromLTRB(0, 200, 0, 0),
-          child: Center(
-            child: Container(
-              height: 100,
-              width: 300,
-              decoration: BoxDecoration(
-                color: Colors.deepOrange,
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: Center(
-                child: Text(
-                  "Kup",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 30,
-                  ),
+            Hero(
+              tag: "couponDash$index",
+              child: Container(
+                margin: EdgeInsets.fromLTRB(40, 20, 40, 120),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  image: DecorationImage(
+                    image: AssetImage(coupon.imagePath),
+                    fit: BoxFit.cover
+                  )
                 ),
               ),
             ),
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
-          child: Container(
-            child: Text(
-              coupon.title,
-              textAlign: TextAlign.left,
-              style: TextStyle(fontSize: 40),
-            ),
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.fromLTRB(50, 10, 50, 0),
-          child: Container(
-              height: 180,
-              decoration: BoxDecoration(
-                  color: Colors.grey[300],
-                  borderRadius: BorderRadius.circular(20)
-
-              ),
-              child: ListView(
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
-                    child: Text(
-                      coupon.description,
-                      style: TextStyle(
-                        fontSize: 20,
-                      ),
+            Center(
+              child: Container(
+                padding: EdgeInsets.all(15.0),
+                margin: EdgeInsets.fromLTRB(0, 250, 0, 0),
+                height: 90,
+                width: 240,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: [
+                    BoxShadow(
+                      blurRadius: 40.0,
+                      color: Colors.black12,
+                      spreadRadius: 5.0
+                    )
+                  ]
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    AutoSizeText(
+                      coupon.title,
+                      style: TextStyle(fontSize: 20),
+                      maxLines: 1,
                     ),
-                  )
-                ],
-              )
+                    Padding(padding: EdgeInsets.fromLTRB(0, 5, 0, 0),),
+                    AutoSizeText(
+                      "Cena: " + coupon.price.toString(),
+                      maxLines: 1,
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ]
+        ),
+      floatingActionButton: Container(
+        height: 60,
+        width: 200,
+        child: FittedBox(
+          child: FloatingActionButton.extended(
+            label: Text("Kup"),
+            icon: Icon(Icons.monetization_on),
+            backgroundColor: Colors.deepOrange,
           ),
-        )
-      ],
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }
 
-Container getToolbar(BuildContext context) {
-  return Container(
-    margin: EdgeInsets.only(
-        top: MediaQuery
-            .of(context)
-            .padding
-            .top),
-    child: BackButton(color: Colors.white,),
-  );
-}
-
-
-
 class Coupon {
   String title;
+  String iconImagePath;
   String imagePath;
   int price;
   String description;
 
-  Coupon(this.title, this.imagePath, this.price, this.description);
+  Coupon(this.title, this.iconImagePath, this.imagePath, this.price, this.description);
 }
 
 Widget _myListView(BuildContext context) {
 
   final coupons = [
-    Coupon('Piwo', 'assets/piwo.jpg', 30, 'Kup dwa piwa w cenie jednego i kolejne otrzymaj gratis! :0'),
-    Coupon('Ukończenie studiów', 'assets/zaliczenie.jpg', 20, 'Pokaż rektorowi ten kupon i skończ studia wcześniej niż twoi rówieśnicy! AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'),
-    Coupon('Zabieg dentystyczny', 'assets/slav.jpg', 30, 'Pokaż ten kupon dresowi, a otrzymasz darmowe prostowanie zębów.')
+    Coupon('Piwo','assets/piwo_low.jpg', 'assets/piwo.jpg', 30, 'Kup dwa piwa w cenie jednego i kolejne otrzymaj gratis! :0'),
+    Coupon('Ukończenie studiów', 'assets/zaliczenie_low.jpg', 'assets/zaliczenie.jpg', 20, 'Pokaż rektorowi ten kupon i skończ studia wcześniej niż twoi rówieśnicy! AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'),
+    Coupon('Zabieg dentystyczny', 'assets/slav.jpg', 'assets/slav.jpg', 30, 'Pokaż ten kupon dresowi, a otrzymasz darmowe prostowanie zębów.')
   ];
 
   return ListView.builder(
     itemCount: coupons.length,
     itemBuilder: (context, index) {
-      return Card(
-        child: ListTile(
-          leading: CircleAvatar(
-            backgroundImage: AssetImage(coupons[index].imagePath),
+      return  Card(
+  //        elevation: 0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20)
           ),
-          title: Text(coupons[index].title),
-          subtitle: Text("Cena: " + coupons[index].price.toString()),
-          onTap: () {Navigator.push(context, MaterialPageRoute(builder: (context) => CouponMenu(coupons[index])),);},
+          child: ListTile(
+            leading: Hero(
+              tag: "couponDash$index",
+              child: Container(
+                height: 50,
+                width: 50,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  image: DecorationImage(
+                    image: AssetImage(coupons[index].imagePath),
+                    fit: BoxFit.cover
+                  )
+                ),
+              ),
+            ),
+            title: Text(coupons[index].title),
+            subtitle: Text("Cena: " + coupons[index].price.toString()),
+  //          onTap: () {Navigator.push(context, MaterialPageRoute(builder: (context) => CouponMenu(coupons[index])),);},
+            onTap: () {Navigator.push(
+                context,
+                PageRouteBuilder(
+                    pageBuilder: (_, __, ___) => CouponCard(coupons[index], index),
+                    transitionDuration: Duration(milliseconds: 500)),
+          );},
         ),
       );
     },

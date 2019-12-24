@@ -4,6 +4,7 @@ import 'package:flutter_base/View/Menu.dart';
 import 'package:flutter_base/View/Coupons.dart';
 import 'package:flutter_base/View/FireMapState.dart';
 import 'package:flutter_base/Controller/CheckPointsFunction.dart';
+import 'package:flutter/services.dart';
 
 void main() => runApp(MyApp());
 
@@ -11,7 +12,17 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+    precacheImage(AssetImage("assets/piwo.jpg"), context);
+    precacheImage(AssetImage("assets/zaliczenie.jpg"), context);
+    precacheImage(AssetImage("assets/slav.jpg"), context);
     return MaterialApp(
+      theme: ThemeData(
+        fontFamily: 'Montserrat',
+      ),
         home: HomeScreen());
   }
 }
@@ -36,12 +47,13 @@ class HomeScreen extends StatelessWidget {
                     ])
                 ),
                 child: Container(
+                  height: 40,
                   child: Column(
                     children: <Widget>[
                       CircleAvatar(
                         backgroundColor: Colors.white,
-                        radius: 50,
-                        child: Icon(Icons.location_on, size: 100,color: Colors.blue,),
+                        radius: 45,
+                        child: Icon(Icons.location_on, size: 90,color: Colors.blue,),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(4.0),
