@@ -109,3 +109,22 @@ class SettingsMenu extends StatelessWidget {
     );
   }
 }
+class QRCodeTest extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("QRCodeTest"),
+        backgroundColor: Colors.deepOrange,
+      ),
+      body: Center(
+        child: RaisedButton(
+          onPressed: () {
+            // Navigate back to first route when tapped.
+          },
+          child: Text('Go back!'),
+        ),
+      ),
+    );
+  }
+}
