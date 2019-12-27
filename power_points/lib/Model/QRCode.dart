@@ -3,8 +3,13 @@ import 'package:qr_flutter/qr_flutter.dart';
 import 'dart:ui';
 import 'package:flutter/rendering.dart';
 
+String _dataString = "Hello from this QR";
+
 class GenerateScreen extends StatefulWidget {
   @override
+  GenerateScreen(String description) {
+    _dataString = description;
+  }
   State<StatefulWidget> createState() => GenerateScreenState();
 }
 
@@ -15,7 +20,6 @@ class GenerateScreenState extends State<GenerateScreen> {
   static const double _topSectionHeight = 20.0;//50
 
   GlobalKey globalKey = new GlobalKey();
-  String _dataString = "Hello from this QR";
 
   @override
   Widget build(BuildContext context) {

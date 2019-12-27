@@ -115,6 +115,6 @@ class QRCodeTest extends StatelessWidget {
   @override
 
   Widget build(BuildContext context) {
-    return GenerateScreen();
+    return GenerateScreen("Jej, testutuje, wincyj");
   }
 }
