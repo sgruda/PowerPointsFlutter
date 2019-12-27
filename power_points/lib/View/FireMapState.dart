@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_base/Model/Constans.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:flutter_base/Model/Markers.dart';
@@ -11,7 +12,6 @@ class FireMap extends StatefulWidget {
 
 class FireMapState extends State<FireMap> {
   GoogleMapController mapController;
-
   build(context) {
     return Stack(
         children: [
@@ -37,9 +37,15 @@ class FireMapState extends State<FireMap> {
     //_checkPoints();
     setState(() {
       mapController = controller;
+      mapController.addListener((){
+        if(REFRESH) {
+          REFRESH = false;
+          mapController.clearMarkers();
+          _addMarkers(mapController);
+        }
+      });
     });
   }
-
   _animateToUser() async {
     var location = new Location();
     var pos = await location.getLocation();
@@ -53,14 +59,21 @@ class FireMapState extends State<FireMap> {
   }
 
   void _addMarkers(GoogleMapController controller) {
+    var _icon =  BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueYellow);
     for (int i = 0; i < Markers.markers.length; i++) {
+      if(Markers.markers[i].active) {
+        _icon =  BitmapDescriptor.defaultMarkerWithHue(
+                     BitmapDescriptor.hueAzure);
+      } else {
+        _icon = BitmapDescriptor.defaultMarkerWithHue(
+                   BitmapDescriptor.hueOrange);
+      }
       var marker = MarkerOptions(
           position: LatLng(Markers.markers[i].markerLatitude,
               Markers.markers[i].markerLongitude),
           //Polibuda
 //        position: LatLng(51.589825, 19.158243),                                     //Home
-          icon: BitmapDescriptor.defaultMarkerWithHue(
-              BitmapDescriptor.hueAzure),
+          icon: _icon,
           infoWindowText: InfoWindowText(Markers.markers[i].markerTitle,
               Markers.markers[i].markerDescription)
       );
