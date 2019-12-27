@@ -9,16 +9,15 @@ import 'package:flutter/rendering.dart';
 import 'package:path_provider/path_provider.dart';
 
 class GenerateScreen extends StatefulWidget {
-
   @override
   State<StatefulWidget> createState() => GenerateScreenState();
 }
 
 class GenerateScreenState extends State<GenerateScreen> {
 
-  static const double _topSectionTopPadding = 50.0;
-  static const double _topSectionBottomPadding = 20.0;
-  static const double _topSectionHeight = 50.0;
+  static const double _topSectionTopPadding = 10.0;//50
+  static const double _topSectionBottomPadding = 10.0;//10
+  static const double _topSectionHeight = 20.0;//50
 
   GlobalKey globalKey = new GlobalKey();
   String _dataString = "Hello from this QR";
@@ -30,6 +29,7 @@ class GenerateScreenState extends State<GenerateScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('QR Code Generator'),
+        backgroundColor: Colors.deepOrange,
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.share),
@@ -77,30 +77,7 @@ class GenerateScreenState extends State<GenerateScreen> {
               height: _topSectionHeight,
               child:  Row(
                 mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  Expanded(
-                    child:  TextField(
-                      controller: _textController,
-                      decoration:  InputDecoration(
-                        hintText: "Enter a custom message",
-                        errorText: _inputErrorText,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 10.0),
-                    child:  FlatButton(
-                      child:  Text("SUBMIT"),
-                      onPressed: () {
-                        setState((){
-                          _dataString = _textController.text;
-                          _inputErrorText = null;
-                        });
-                      },
-                    ),
-                  )
-                ],
+                crossAxisAlignment: CrossAxisAlignment.stretch
               ),
             ),
           ),
@@ -111,12 +88,6 @@ class GenerateScreenState extends State<GenerateScreen> {
                 child: QrImage(
                   data: _dataString,
                   size: 0.5 * bodyHeight,
-//                  onError: (ex) {
-//                    print("[QR] ERROR - $ex");
-//                    setState((){
-//                      _inputErrorText = "Error! Maybe your input value is too long?";
-//                    });
-//                  },
                 ),
               ),
             ),
