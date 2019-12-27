@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base/Model/Constans.dart';
+import 'package:flutter_base/Model/QRCode.dart';
+
 class ProfileMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -111,20 +113,8 @@ class SettingsMenu extends StatelessWidget {
 }
 class QRCodeTest extends StatelessWidget {
   @override
+
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("QRCodeTest"),
-        backgroundColor: Colors.deepOrange,
-      ),
-      body: Center(
-        child: RaisedButton(
-          onPressed: () {
-            // Navigate back to first route when tapped.
-          },
-          child: Text('Go back!'),
-        ),
-      ),
-    );
+    return GenerateScreen();
   }
 }
