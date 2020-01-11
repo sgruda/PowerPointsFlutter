@@ -14,11 +14,15 @@ void checkPoints(BuildContext context) async {
     instruction = false;
   }
   for(int i = 0 ; i < Markers.markers.length; i++) {
-    if (abs(pos.latitude - Markers.markers[i].markerLatitude) < 0.00015 &&
+    if (Markers.markers[i].active &&
+        abs(pos.latitude - Markers.markers[i].markerLatitude) < 0.00015 &&
         abs(pos.longitude - Markers.markers[i].markerLongitude) < 0.00015) {
+
       _popAd(context, Markers.markers[i].markerTitleAfterCheck,
-          Markers.markers[i].markerDescriptionAfterCheck);
+              Markers.markers[i].markerDescriptionAfterCheck);
       userPoints += Markers.markers[i].points;
+      Markers.markers[i].active = false;
+      REFRESH = true;
     }
   }
 }
