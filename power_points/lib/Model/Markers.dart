@@ -34,6 +34,11 @@ class Markers {
         51.589825, 19.158179,
         "blok.", "",
         "dgsg", "Stoisz w kącie! Zdobyłeś 10 punktów!",
+        10, true),
+    4:  new MarkerData(
+        51.755231, 19.530784,
+        "Klepek", "",
+        "Dom Klepka", "Przystań Bogów",
         10, true)
   };
 
