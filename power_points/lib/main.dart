@@ -68,6 +68,7 @@ class HomeScreen extends StatelessWidget {
             CustomListTile(Icons.confirmation_number, 'Coupons', () {Navigator.push(context, MaterialPageRoute(builder: (context) => CouponsMenu()),);}),
 //            CustomListTile(Icons.comment, 'Trivia', () {Navigator.push(context, MaterialPageRoute(builder: (context) => TriviaMenu()),);}),
 //            CustomListTile(Icons.settings, 'Settings', () {Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsMenu()),);}),
+            CustomListTile(Icons.comment, 'QRCodeTest', () {Navigator.push(context, MaterialPageRoute(builder: (context) => QRCodeTest()),);}),
           ],
         ),
       ),

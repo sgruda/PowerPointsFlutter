@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_base/Model/Constans.dart';
+import 'package:flutter_base/Model/QRCode.dart';
+
 
 class ProfileMenu extends StatefulWidget {
   @override
@@ -207,5 +209,12 @@ class SettingsMenu extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+class QRCodeTest extends StatelessWidget {
+  @override
+
+  Widget build(BuildContext context) {
+    return GenerateScreen("Jej, testutuje, wincyj");
   }
 }
