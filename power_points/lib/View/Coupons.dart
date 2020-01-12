@@ -39,12 +39,10 @@ class CouponCard extends StatefulWidget {
 class CouponCardState extends State<CouponCard>{
   Coupon coupon;
   bool isTapped = false;
-  bool isBought;
 
   @override
   void initState(){
     coupon = widget.coupon;
-    isBought= coupon.isBought;
     super.initState();
   }
 
@@ -127,7 +125,7 @@ class CouponCardState extends State<CouponCard>{
         duration: Duration(microseconds: 1),
         height: 60,
         width: 200,
-        child: (isBought)
+        child: (coupon.isBought)
         ? FittedBox(
             child: FloatingActionButton.extended(
               label: Text("Kod QR"),
@@ -144,9 +142,9 @@ class CouponCardState extends State<CouponCard>{
             icon: Icon(Icons.monetization_on),
             backgroundColor: Colors.deepOrange,
             onPressed: () {
-              coupon.buy(context);
               setState(() {
-                isBought = coupon.isBought;
+                coupon.isBought = true;
+                userPoints -= coupon.price;
               });
             },
           ),
@@ -197,11 +195,7 @@ class Coupon {
 
 Widget _myListView(BuildContext context) {
 
-  final coupons = [
-    Coupon('Piwo','assets/piwo_low.jpg', 'assets/piwo.jpg', 30, 'Kup jedno piwo w cenie dwóch i kolejne otrzymaj gratis! :0'),
-    Coupon('Ukończenie studiów', 'assets/zaliczenie_low.jpg', 'assets/zaliczenie.jpg', 20, 'Pokaż rektorowi ten kupon i skończ studia wcześniej niż twoi rówieśnicy!'),
-    Coupon('Zabieg dentystyczny', 'assets/slav.jpg', 'assets/slav.jpg', 30, 'Pokaż ten kupon dresowi, a otrzymasz darmowe prostowanie zębów.'),
-  ];
+
 
   return ListView.builder(
     itemCount: coupons.length,
