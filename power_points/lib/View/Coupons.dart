@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base/Model/Constans.dart';
+import 'package:flutter_base/Model/QRCode.dart';
 import 'package:flutter_base/View/Menu.dart';
 
 class CouponsMenu extends StatelessWidget {
@@ -132,7 +133,7 @@ class CouponCardState extends State<CouponCard>{
               icon: Icon(Icons.monetization_on),
               backgroundColor: Colors.deepOrange,
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => QRCodeTest()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => GenerateCodeQR(coupon.title + coupon.description)));
               }
             )
         )

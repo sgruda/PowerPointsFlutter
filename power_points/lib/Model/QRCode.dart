@@ -5,15 +5,15 @@ import 'package:flutter/rendering.dart';
 
 String _dataString = "Hello from this QR";
 
-class GenerateScreen extends StatefulWidget {
+class GenerateCodeQR extends StatefulWidget {
   @override
-  GenerateScreen(String description) {
+  GenerateCodeQR(String description) {
     _dataString = description;
   }
   State<StatefulWidget> createState() => GenerateScreenState();
 }
 
-class GenerateScreenState extends State<GenerateScreen> {
+class GenerateScreenState extends State<GenerateCodeQR> {
 
   static const double _topSectionTopPadding = 10.0;//50
   static const double _topSectionBottomPadding = 10.0;//10
