@@ -20,8 +20,8 @@
          FlutterApplication and put your custom class here. -->
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="power_points"
-        android:icon="@mipmap/ic_launcher">
+        android:label="Mapka: The Game"
+        android:icon="@mipmap/mapka_icon">
 
         <meta-data android:name="com.google.android.geo.API_KEY"
                android:value="AIzaSyCPCIkDienY-V7qsPMQ-iEAcAt58CR25Po"/>
