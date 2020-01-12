@@ -1,3 +1,9 @@
+import 'dart:io';
+
 bool instruction = true;
-int userPoints = 0;
-String userName = "Jakubo Klepaczoo";
+int userPoints = 60;
+String userName = "Anonim";
+bool REFRESH = false;
+File imageFile;
+
+
