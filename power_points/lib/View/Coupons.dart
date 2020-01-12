@@ -143,8 +143,7 @@ class CouponCardState extends State<CouponCard>{
             backgroundColor: Colors.deepOrange,
             onPressed: () {
               setState(() {
-                coupon.isBought = true;
-                userPoints -= coupon.price;
+                coupon.buy(context);
               });
             },
           ),
