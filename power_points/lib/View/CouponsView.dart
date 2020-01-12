@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base/Model/Constans.dart';
 import 'package:flutter_base/Model/QRCode.dart';
-import 'package:flutter_base/View/Menu.dart';
+import 'package:flutter_base/Model/Coupons.dart';
 
 class CouponsMenu extends StatelessWidget {
   @override
@@ -152,44 +152,6 @@ class CouponCardState extends State<CouponCard>{
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
-  }
-}
-
-class Coupon {
-  String title;
-  String iconImagePath;
-  String imagePath;
-  int price;
-  String description;
-  bool  isBought;
-
-  Coupon(this.title, this.iconImagePath, this.imagePath, this.price, this.description){
-    this.isBought = false;
-  }
-
-  buy(context) async{
-    if(userPoints >= this.price && this.isBought == false){
-      userPoints -= this.price;
-      this.isBought = true;
-      showDialog(
-          context: context,
-          builder: (BuildContext context){
-            return AlertDialog(
-              title: Text("Kupiono Kupon"),
-            );
-          }
-      );
-    }
-    else{
-      showDialog(
-        context: context,
-        builder: (BuildContext context){
-          return AlertDialog(
-            title: Text("Nie można kupić kuponu"),
-          );
-        }
-      );
-    }
   }
 }
 

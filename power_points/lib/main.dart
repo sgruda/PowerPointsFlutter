@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base/View/Menu.dart';
-import 'package:flutter_base/View/Coupons.dart';
+import 'package:flutter_base/View/CouponsView.dart';
 import 'package:flutter_base/View/FireMapState.dart';
 import 'package:flutter_base/Controller/CheckPointsFunction.dart';
 import 'package:flutter/services.dart';
