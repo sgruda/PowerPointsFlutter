@@ -315,11 +315,3 @@ class SettingsMenu extends StatelessWidget {
     );
   }
 }
-
-class QRCodeTest extends StatelessWidget {
-  @override
-
-  Widget build(BuildContext context) {
-    return GenerateScreen("Jej, testutuje, wincyj");
-  }
-}
