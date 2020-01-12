@@ -315,6 +315,7 @@ class SettingsMenu extends StatelessWidget {
     );
   }
 }
+
 class QRCodeTest extends StatelessWidget {
   @override
 

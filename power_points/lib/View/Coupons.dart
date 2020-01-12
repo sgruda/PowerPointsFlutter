@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base/Model/Constans.dart';
+import 'package:flutter_base/View/Menu.dart';
 
 class CouponsMenu extends StatelessWidget {
   @override
@@ -38,10 +39,12 @@ class CouponCard extends StatefulWidget {
 class CouponCardState extends State<CouponCard>{
   Coupon coupon;
   bool isTapped = false;
+  bool isBought;
 
   @override
   void initState(){
     coupon = widget.coupon;
+    isBought= coupon.isBought;
     super.initState();
   }
 
@@ -120,14 +123,32 @@ class CouponCardState extends State<CouponCard>{
             ),
           ]
         ),
-      floatingActionButton: Container(
+      floatingActionButton: AnimatedContainer(
+        duration: Duration(microseconds: 1),
         height: 60,
         width: 200,
-        child: FittedBox(
+        child: (isBought)
+        ? FittedBox(
+            child: FloatingActionButton.extended(
+              label: Text("Kod QR"),
+              icon: Icon(Icons.monetization_on),
+              backgroundColor: Colors.deepOrange,
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => QRCodeTest()));
+              }
+            )
+        )
+        : FittedBox(
           child: FloatingActionButton.extended(
             label: Text("Kup"),
             icon: Icon(Icons.monetization_on),
             backgroundColor: Colors.deepOrange,
+            onPressed: () {
+              coupon.buy(context);
+              setState(() {
+                isBought = coupon.isBought;
+              });
+            },
           ),
         ),
       ),
@@ -142,8 +163,36 @@ class Coupon {
   String imagePath;
   int price;
   String description;
+  bool  isBought;
 
-  Coupon(this.title, this.iconImagePath, this.imagePath, this.price, this.description);
+  Coupon(this.title, this.iconImagePath, this.imagePath, this.price, this.description){
+    this.isBought = false;
+  }
+
+  buy(context) async{
+    if(userPoints >= this.price && this.isBought == false){
+      userPoints -= this.price;
+      this.isBought = true;
+      showDialog(
+          context: context,
+          builder: (BuildContext context){
+            return AlertDialog(
+              title: Text("Kupiono Kupon"),
+            );
+          }
+      );
+    }
+    else{
+      showDialog(
+        context: context,
+        builder: (BuildContext context){
+          return AlertDialog(
+            title: Text("Nie można kupić kuponu"),
+          );
+        }
+      );
+    }
+  }
 }
 
 Widget _myListView(BuildContext context) {

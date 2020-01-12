@@ -39,7 +39,7 @@ class Markers {
         51.755231, 19.530784,
         "Klepek", "",
         "Dom Klepka", "Przystań Bogów",
-        10, true)
+        100, true)
   };
 
 }
