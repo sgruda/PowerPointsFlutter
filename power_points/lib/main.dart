@@ -16,12 +16,17 @@ class MyApp extends StatelessWidget {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    precacheImage(AssetImage("assets/piwo.jpg"), context);
-    precacheImage(AssetImage("assets/zaliczenie.jpg"), context);
-    precacheImage(AssetImage("assets/slav.jpg"), context);
+//    precacheImage(AssetImage("assets/piwo.jpg"), context);
+//    precacheImage(AssetImage("assets/zaliczenie.jpg"), context);
+//    precacheImage(AssetImage("assets/slav.jpg"), context);
     return MaterialApp(
       theme: ThemeData(
         fontFamily: 'Montserrat',
+        primaryColor: Color(0xff1b1f3a),
+        scaffoldBackgroundColor: Color(0xff53354a),
+        splashColor: Color(0xffa64942),
+        accentColor: Color(0xffa64942),
+        floatingActionButtonTheme: FloatingActionButtonThemeData(backgroundColor: Color(0xffff7844)),
       ),
         home: HomeScreen());
   }

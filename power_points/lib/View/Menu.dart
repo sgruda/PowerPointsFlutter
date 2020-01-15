@@ -20,7 +20,7 @@ class ProfileMenuState extends State<ProfileMenu> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Profile"),
-        backgroundColor: Colors.deepOrange,
+//        backgroundColor: Colors.deepOrange,
       ),
       body: Center(
         child: Column(
@@ -32,7 +32,7 @@ class ProfileMenuState extends State<ProfileMenu> {
             ),
             SizedBox(height: 30,),
             Center(child: AutoSizeText(
-              userName, 
+              userName,
               style: TextStyle(fontSize: 35),
               maxLines: 1,)
             ),
@@ -51,7 +51,7 @@ class ProfileMenuState extends State<ProfileMenu> {
               Navigator.push(context, MaterialPageRoute(builder: (context) => EditMenu()),);
             },
             icon: Icon(Icons.assignment_ind),
-            backgroundColor: Colors.deepOrange,
+//            backgroundColor: Colors.deepOrange,
           ),
         ),
       ),
@@ -65,7 +65,7 @@ Widget decideImageView(){
   if(imageFile == null){
     return CircleAvatar(
       radius: 115,
-      backgroundColor: Colors.deepOrange,
+//      backgroundColor: Colors.deepOrange,
       child: CircleAvatar(
           radius: 105,
           backgroundColor: Colors.white,
@@ -80,8 +80,8 @@ Widget decideImageView(){
           borderRadius: BorderRadius.circular(115),
           color: Colors.white,
           border: Border.all(
-              width: 10,
-              color: Colors.deepOrange
+            width: 10,
+//            color: Colors.deepOrange,
           ),
           image: DecorationImage(
               image: AssetImage(imageFile.path),
@@ -147,7 +147,7 @@ class _EditMenuState extends State<EditMenu> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Edycja profilu"),
-        backgroundColor: Colors.deepOrange,
+//        backgroundColor: Colors.deepOrange,
       ),
       body: Center(
         child: ListView(
@@ -250,7 +250,7 @@ class PointsMenu extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: Text("Points"),
-          backgroundColor: Colors.deepOrange,
+//          backgroundColor: Colors.deepOrange,
         ),
         body: Center(
           child: Column(
@@ -262,7 +262,7 @@ class PointsMenu extends StatelessWidget {
               Center(
                   child:CircleAvatar(
                     radius: 60,
-                    backgroundColor: Colors.deepOrange,
+//                    backgroundColor: Colors.deepOrange,
                     child: CircleAvatar(
                         radius: 55,
                         backgroundColor: Colors.white,
@@ -282,7 +282,7 @@ class TriviaMenu extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("Trivia"),
-        backgroundColor: Colors.deepOrange,
+//        backgroundColor: Colors.deepOrange,
       ),
       body: Center(
         child: RaisedButton(
@@ -302,7 +302,7 @@ class SettingsMenu extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("Settings"),
-        backgroundColor: Colors.deepOrange,
+//        backgroundColor: Colors.deepOrange,
       ),
       body: Center(
         child: RaisedButton(
