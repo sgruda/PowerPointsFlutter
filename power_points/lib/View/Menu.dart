@@ -28,7 +28,7 @@ class ProfileMenuState extends State<ProfileMenu> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Center(
-              child: decideImageView()
+              child: decideImageView(115)
             ),
             SizedBox(height: 30,),
             Center(child: AutoSizeText(
@@ -61,27 +61,27 @@ class ProfileMenuState extends State<ProfileMenu> {
 }
 
 
-Widget decideImageView(){
+Widget decideImageView(double rad){
   if(imageFile == null){
     return CircleAvatar(
-      radius: 115,
-//      backgroundColor: Colors.deepOrange,
+      radius: rad,
+      backgroundColor: color7,
       child: CircleAvatar(
-          radius: 105,
-          backgroundColor: Colors.white,
-          child: Icon(Icons.person, size: 100, color: Colors.grey,)),
+          radius: rad*0.9,
+          backgroundColor: color3,
+          child: Icon(Icons.person, size: rad*1.3, color: Colors.white,)),
     );
   }
   else{
     return Container(
-      height: 230,
-      width: 230,
+      height: rad*2,
+      width: rad*2,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(115),
-          color: Colors.white,
+          color: color3,
           border: Border.all(
-            width: 10,
-//            color: Colors.deepOrange,
+            width: rad*0.1,
+            color: color7,
           ),
           image: DecorationImage(
               image: AssetImage(imageFile.path),
@@ -120,15 +120,18 @@ class _EditMenuState extends State<EditMenu> {
         content: SingleChildScrollView(
           child: ListBody(
             children: <Widget>[
-              GestureDetector(
-                child: Text("Gallery"),
+              InkWell(
+                child: Container(
+                    padding: EdgeInsets.all(10),
+                    child: Text("Gallery")),
                 onTap: (){
                   openGallery();
                 },
               ),
-              Padding(padding: EdgeInsets.all(8),),
-              GestureDetector(
-                child: Text("Camera"),
+              InkWell(
+                child: Container(
+                    padding: EdgeInsets.all(10),
+                    child: Text("Camera")),
                 onTap: (){
                   openCamera();
                 },
@@ -157,7 +160,7 @@ class _EditMenuState extends State<EditMenu> {
               child: Column(
                 children: <Widget>[
                   Center(
-                    child: decideImageView()
+                    child: decideImageView(115)
                   ),
                   Padding(
                       padding: const EdgeInsets.symmetric(vertical: 5.0)
@@ -262,11 +265,11 @@ class PointsMenu extends StatelessWidget {
               Center(
                   child:CircleAvatar(
                     radius: 60,
-//                    backgroundColor: Colors.deepOrange,
+                    backgroundColor: color4,
                     child: CircleAvatar(
                         radius: 55,
-                        backgroundColor: Colors.white,
-                        child: Text(userPoints.toString(), style: TextStyle(fontSize: 50, color: Colors.black))),
+                        backgroundColor: color3,
+                        child: Text(userPoints.toString(), style: TextStyle(fontSize: 50, color: color5))),
                   )
               )
             ],
@@ -276,42 +279,3 @@ class PointsMenu extends StatelessWidget {
   }
 }
 
-class TriviaMenu extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Trivia"),
-//        backgroundColor: Colors.deepOrange,
-      ),
-      body: Center(
-        child: RaisedButton(
-          onPressed: () {
-            // Navigate back to first route when tapped.
-          },
-          child: Text('Go back!'),
-        ),
-      ),
-    );
-  }
-}
-
-class SettingsMenu extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Settings"),
-//        backgroundColor: Colors.deepOrange,
-      ),
-      body: Center(
-        child: RaisedButton(
-          onPressed: () {
-            // Navigate back to first route when tapped.
-          },
-          child: Text('Go back!'),
-        ),
-      ),
-    );
-  }
-}

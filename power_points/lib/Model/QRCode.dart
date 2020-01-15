@@ -25,7 +25,7 @@ class GenerateScreenState extends State<GenerateCodeQR> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.deepOrange,
+//        backgroundColor: Colors.deepOrange,
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.share),

@@ -14,10 +14,11 @@ class CouponsMenu extends StatelessWidget {
         actions: <Widget>[
           Text("Punkty: " + userPoints.toString())
         ],
-        backgroundColor: Colors.deepOrange,
+//        backgroundColor: Colors.deepOrange,
       ),
       body: Center(
         child: Container(
+          padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
           child: _myListView(context),
         ),
       ),
@@ -55,9 +56,9 @@ class CouponCardState extends State<CouponCard>{
         actions: <Widget>[
           Text("Punkty: " + userPoints.toString())
         ],
-        backgroundColor: Colors.deepOrange,
+//        backgroundColor: Colors.deepOrange,
       ),
-      backgroundColor: Colors.grey[100],
+//      backgroundColor: Colors.grey[100],
       body: Stack(
           children: <Widget>[
             Container(
@@ -87,12 +88,12 @@ class CouponCardState extends State<CouponCard>{
                     height: isTapped ? 300 : 70,
                     width: isTapped ? 240 : 220,
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: color3,
                       borderRadius: isTapped ? BorderRadius.circular(20) : BorderRadius.circular(10),
                       boxShadow: [
                         BoxShadow(
-                          blurRadius: 40.0,
-                          color: Colors.black12,
+                          blurRadius: 20.0,
+//                          color: Colors.black12,
                           spreadRadius: 5.0
                         )
                       ]
@@ -109,7 +110,7 @@ class CouponCardState extends State<CouponCard>{
                           style: TextStyle(fontSize: 10),
                           maxLines: 1,
                         ),
-                        Padding(padding: EdgeInsets.fromLTRB(0, 20, 0, 0),),
+                        Padding(padding: EdgeInsets.fromLTRB(0, 30, 0, 0),),
                         AutoSizeText(
                           coupon.description,
                         )
@@ -131,7 +132,7 @@ class CouponCardState extends State<CouponCard>{
             child: FloatingActionButton.extended(
               label: Text("Kod QR"),
               icon: Icon(Icons.monetization_on),
-              backgroundColor: Colors.deepOrange,
+//              backgroundColor: Colors.deepOrange,
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) => GenerateCodeQR(coupon.title + coupon.description)));
               }
@@ -141,7 +142,7 @@ class CouponCardState extends State<CouponCard>{
           child: FloatingActionButton.extended(
             label: Text("Kup"),
             icon: Icon(Icons.monetization_on),
-            backgroundColor: Colors.deepOrange,
+//            backgroundColor: Colors.deepOrange,
             onPressed: () {
               setState(() {
                 coupon.buy(context);
@@ -163,30 +164,30 @@ Widget _myListView(BuildContext context) {
     itemCount: coupons.length,
     itemBuilder: (context, index) {
       return  Card(
-  //        elevation: 0,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20)
-          ),
-          child: ListTile(
-            leading: Container(
-              height: 50,
-              width: 50,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                image: DecorationImage(
-                  image: AssetImage(coupons[index].imagePath),
-                  fit: BoxFit.cover
-                )
-              ),
+        elevation: 2,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20)
+        ),
+        child: ListTile(
+          leading: Container(
+            height: 50,
+            width: 50,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              image: DecorationImage(
+                image: AssetImage(coupons[index].imagePath),
+                fit: BoxFit.cover
+              )
             ),
-            title: Text(coupons[index].title),
-            subtitle: Text("Cena: " + coupons[index].price.toString()),
-  //          onTap: () {Navigator.push(context, MaterialPageRoute(builder: (context) => CouponMenu(coupons[index])),);},
-            onTap: () {Navigator.push(
-                context,
-                PageRouteBuilder(
-                    pageBuilder: (_, __, ___) => CouponCard(coupons[index]),
-                    transitionDuration: Duration(milliseconds: 500)),
+          ),
+          title: Text(coupons[index].title),
+          subtitle: Text("Cena: " + coupons[index].price.toString()),
+//          onTap: () {Navigator.push(context, MaterialPageRoute(builder: (context) => CouponMenu(coupons[index])),);},
+          onTap: () {Navigator.push(
+              context,
+              PageRouteBuilder(
+                  pageBuilder: (_, __, ___) => CouponCard(coupons[index]),
+                  transitionDuration: Duration(milliseconds: 500)),
           );},
         ),
       );
@@ -207,13 +208,13 @@ class CustomListTile extends StatelessWidget{
   Widget build(BuildContext context) {
     // TODO: implement build
     return Padding(
-      padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0,0),
+      padding: const EdgeInsets.fromLTRB(10.0, 0, 10.0,0),
       child: Container(
         decoration: BoxDecoration(
-            border: Border(bottom: BorderSide(color: Colors.black12))
+            border: Border(bottom: BorderSide(color: color6))
         ),
         child: InkWell(
-            splashColor: Colors.grey,
+//            splashColor: Colors.grey,
             onTap: onTap,
             child: Container(
               height: 50,

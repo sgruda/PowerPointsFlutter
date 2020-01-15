@@ -5,9 +5,27 @@ import 'package:flutter_base/View/CouponsView.dart';
 import 'package:flutter_base/View/FireMapState.dart';
 import 'package:flutter_base/Controller/CheckPointsFunction.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_base/Model/Constans.dart';
 
 void main() => runApp(MyApp());
 
+
+
+InputDecorationTheme inputDecorationTheme1 = InputDecorationTheme(
+  focusedBorder: OutlineInputBorder(
+    borderSide: BorderSide(
+      color: color3,
+    )
+  ),
+  enabledBorder: OutlineInputBorder(
+      borderSide: BorderSide(
+        color: color3,
+      )
+  ),
+  labelStyle: TextStyle(
+    color: color5,
+  )
+);
 
 class MyApp extends StatelessWidget {
   @override
@@ -16,17 +34,30 @@ class MyApp extends StatelessWidget {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-//    precacheImage(AssetImage("assets/piwo.jpg"), context);
-//    precacheImage(AssetImage("assets/zaliczenie.jpg"), context);
-//    precacheImage(AssetImage("assets/slav.jpg"), context);
+    final newTextTheme = Theme.of(context).textTheme.apply(
+      bodyColor: color5,
+      displayColor: color5,
+      decorationColor: color5,
+    );
     return MaterialApp(
       theme: ThemeData(
         fontFamily: 'Montserrat',
-        primaryColor: Color(0xff1b1f3a),
-        scaffoldBackgroundColor: Color(0xff53354a),
-        splashColor: Color(0xffa64942),
-        accentColor: Color(0xffa64942),
-        floatingActionButtonTheme: FloatingActionButtonThemeData(backgroundColor: Color(0xffff7844)),
+        textTheme: newTextTheme,
+        cursorColor: color4,
+        primaryColor: color1,
+        canvasColor: color2,
+        scaffoldBackgroundColor: color2,
+        splashColor: color3,
+        accentColor: color3,
+        cardColor: color3,
+        buttonTheme: ButtonThemeData(
+          buttonColor: color3,
+          textTheme: ButtonTextTheme.primary,
+        ),
+        floatingActionButtonTheme: FloatingActionButtonThemeData(backgroundColor: color4),
+        dialogBackgroundColor: color1,
+        inputDecorationTheme: inputDecorationTheme1,
+        iconTheme: IconThemeData(color: color5)
       ),
         home: HomeScreen());
   }
@@ -39,7 +70,7 @@ class HomeScreen extends StatelessWidget {
       body: FireMap(),
       appBar: AppBar(
         title: Text('Mapka'),
-        backgroundColor: Colors.deepOrange,
+//        backgroundColor: Colors.deepOrange,
       ),
       drawer: Drawer(
         child: ListView(
@@ -48,7 +79,7 @@ class HomeScreen extends StatelessWidget {
                 decoration: BoxDecoration(
                     gradient: LinearGradient(colors: <Color>[
                       Colors.deepOrange[500],
-                      Colors.orange
+                      Colors.orange,
                     ])
                 ),
                 child: Container(
@@ -56,9 +87,9 @@ class HomeScreen extends StatelessWidget {
                   child: Column(
                     children: <Widget>[
                       CircleAvatar(
-                        backgroundColor: Colors.white,
+                        backgroundColor: color5,
                         radius: 45,
-                        child: Icon(Icons.location_on, size: 90,color: Colors.blue,),
+                        child: Icon(Icons.location_on, size: 90,color: Colors.blue[700]),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(4.0),
@@ -86,7 +117,7 @@ class HomeScreen extends StatelessWidget {
               checkPoints(context);
             },
             icon: Icon(Icons.camera),
-            backgroundColor: Colors.deepOrange,
+//            backgroundColor: Colors.deepOrange,
           ),
         ),
       ),
