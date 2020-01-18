@@ -1,3 +1,5 @@
+import 'package:shared_preferences/shared_preferences.dart';
+
 class MarkerData {
   final double markerLatitude;
   final double markerLongitude;
@@ -14,6 +16,13 @@ class MarkerData {
       this.markerDescriptionAfterCheck, this.points, this.active);
 }
 class Markers {
+  static load() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    for (int i = 0; i < Markers.markers.length; i++) {
+      Markers.markers[i].active = prefs.getBool("activeMarker" + i.toString());
+      print('$i loaded '+ Markers.markers[i].active.toString());
+    }
+  }
   static Map<int, MarkerData> markers = {
     0:  new MarkerData(
         51.747179, 19.453392,

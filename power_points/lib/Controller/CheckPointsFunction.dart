@@ -4,6 +4,7 @@ import 'package:location/location.dart';
 import 'dart:async';
 import 'package:flutter_base/Model/Constans.dart';
 import 'package:flutter_base/Model/Markers.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 void checkPoints(BuildContext context) async {
@@ -14,6 +15,7 @@ void checkPoints(BuildContext context) async {
     instruction = false;
   }
   for(int i = 0 ; i < Markers.markers.length; i++) {
+    Markers.load();
     if (Markers.markers[i].active &&
         abs(pos.latitude - Markers.markers[i].markerLatitude) < 0.00015 &&
         abs(pos.longitude - Markers.markers[i].markerLongitude) < 0.00015) {
@@ -22,6 +24,7 @@ void checkPoints(BuildContext context) async {
               Markers.markers[i].markerDescriptionAfterCheck);
       userPoints += Markers.markers[i].points;
       Markers.markers[i].active = false;
+      _activeMarkerSave(i.toString(), false);
       REFRESH = true;
     }
   }
@@ -54,4 +57,10 @@ Future<void> _popAd(BuildContext context, String title, String text) async {
       );
     },
   );
+}
+_activeMarkerSave(markerIndex, active) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  await prefs.setBool("activeMarker" + markerIndex, active);
+  print('$markerIndex  $active');
+
 }

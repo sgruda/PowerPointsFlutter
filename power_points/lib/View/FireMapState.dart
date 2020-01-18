@@ -4,6 +4,8 @@ import 'package:flutter_base/Model/Constans.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:flutter_base/Model/Markers.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 class FireMap extends StatefulWidget {
   @override
@@ -58,9 +60,11 @@ class FireMapState extends State<FireMap> {
     );
   }
 
-  void _addMarkers(GoogleMapController controller) {
+  void _addMarkers(GoogleMapController controller) async{
     var _icon =  BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueYellow);
+    Markers.load();
     for (int i = 0; i < Markers.markers.length; i++) {
+
       if(Markers.markers[i].active) {
         _icon =  BitmapDescriptor.defaultMarkerWithHue(
                      BitmapDescriptor.hueAzure);
