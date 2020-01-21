@@ -297,7 +297,7 @@ class DataBaseMenu extends StatelessWidget {
             child: RaisedButton(
               child: Text('Read'),
               onPressed: () {
-                read();
+                read(20);
               },
             ),
           ),

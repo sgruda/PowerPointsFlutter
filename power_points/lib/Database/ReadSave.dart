@@ -4,9 +4,9 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter_base/Database/DatabaseHelpers.dart';
 
-read() async {
+read(id) async {
   DatabaseHelper helper = DatabaseHelper.instance;
-  int rowId = 14;
+  int rowId = id;
   Coupon coupon = await helper.queryCoupon(rowId);
   if (coupon == null) {
     print('read row $rowId: empty');

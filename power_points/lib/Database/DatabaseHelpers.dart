@@ -33,7 +33,8 @@ class Coupon {
     imagePath = map[columnImagePath];
     price = map[columnPrice];
     description = map[columnDescription];
-    isBought = map[columnIsBought];
+    if (map[columnIsBought] == 0) isBought = false;
+    else isBought = true;
   }
 
   Map<String, dynamic> toMap() {
