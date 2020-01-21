@@ -30,10 +30,10 @@ class Coupon {
     id = map[columnId];
     title = map[columnTitle];
     iconImagePath = map[columnIconImagePath];
-    imagePath = map[imagePath];
+    imagePath = map[columnImagePath];
     price = map[columnPrice];
-    description = map[description];
-    isBought = map[isBought];
+    description = map[columnDescription];
+    isBought = map[columnIsBought];
   }
 
   Map<String, dynamic> toMap() {

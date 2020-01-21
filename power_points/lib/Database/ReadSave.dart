@@ -6,12 +6,12 @@ import 'package:flutter_base/Database/DatabaseHelpers.dart';
 
 read() async {
   DatabaseHelper helper = DatabaseHelper.instance;
-  int rowId = 1;
+  int rowId = 14;
   Coupon coupon = await helper.queryCoupon(rowId);
   if (coupon == null) {
     print('read row $rowId: empty');
   } else {
-    print('read row $rowId: title: ${coupon.title}, price: ${coupon.price}, description: ${coupon.description}, isBought ${coupon.isBought}');
+    print('read row $rowId: title: ${coupon.title}, iconImagePath: ${coupon.iconImagePath}, imagePath: ${coupon.imagePath}, price: ${coupon.price}, description: ${coupon.description}, isBought ${coupon.isBought}');
   }
 }
 
