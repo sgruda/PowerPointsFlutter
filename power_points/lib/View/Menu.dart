@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_base/Model/Constans.dart';
 import 'package:flutter_base/Model/QRCode.dart';
 import 'package:image_picker/image_picker.dart';
-
+import 'package:flutter_base/Database/DatabaseHelpers.dart';
+import 'package:flutter_base/Database/ReadSave.dart';
 
 
 class ProfileMenu extends StatefulWidget {
@@ -275,6 +276,42 @@ class PointsMenu extends StatelessWidget {
             ],
           ),
         )
+    );
+  }
+}
+
+
+class DataBaseMenu extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: Text("Database"),
+//          backgroundColor: Colors.deepOrange,
+        ),
+      body: Row(
+        //mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: RaisedButton(
+              child: Text('Read'),
+              onPressed: () {
+                read();
+              },
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: RaisedButton(
+              child: Text('Save'),
+              onPressed: () {
+                save('Hello', 'assets/piwo_low.jpg', 'assets/piwo.jpg', 30, 'Kupon witający', false);
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
