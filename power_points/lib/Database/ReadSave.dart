@@ -11,7 +11,7 @@ read(id) async {
   if (coupon == null) {
     print('read row $rowId: empty');
   } else {
-    print('read row $rowId: title: ${coupon.title}, iconImagePath: ${coupon.iconImagePath}, imagePath: ${coupon.imagePath}, price: ${coupon.price}, description: ${coupon.description}, isBought ${coupon.isBought}');
+    print('read row $rowId: title: ${coupon.title}, iconImagePath: ${coupon.iconImagePath}, imagePath: ${coupon.imagePath}, price: ${coupon.price}, description: ${coupon.description}, isBought: ${coupon.isBought}');
   }
 }
 

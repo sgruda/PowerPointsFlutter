@@ -63,35 +63,19 @@ class ProfileMenuState extends State<ProfileMenu> {
 
 
 Widget decideImageView(double rad){
-  if(imageFile == null){
+  {
     return CircleAvatar(
       radius: rad,
       backgroundColor: color7,
       child: CircleAvatar(
           radius: rad*0.9,
           backgroundColor: color3,
-          child: Icon(Icons.person, size: rad*1.3, color: Colors.white,)),
+          child: imageFile == null
+          ? Icon(Icons.person, size: rad*1.3, color: Colors.white,)
+          : CircleAvatar(backgroundImage: new FileImage(imageFile), radius: 200.0, backgroundColor: color3),
+      )
     );
   }
-  else{
-    return Container(
-      height: rad*2,
-      width: rad*2,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(115),
-          color: color3,
-          border: Border.all(
-            width: rad*0.1,
-            color: color7,
-          ),
-          image: DecorationImage(
-              image: AssetImage(imageFile.path),
-              fit: BoxFit.cover
-          )
-      ),
-    );
-  }
-
 }
 
 

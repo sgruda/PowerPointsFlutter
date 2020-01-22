@@ -92,9 +92,9 @@ class CouponCardState extends State<CouponCard>{
                       borderRadius: isTapped ? BorderRadius.circular(20) : BorderRadius.circular(10),
                       boxShadow: [
                         BoxShadow(
-                          blurRadius: 20.0,
-//                          color: Colors.black12,
-                          spreadRadius: 5.0
+                          blurRadius: 10.0,
+                          spreadRadius: 1,
+                          offset: Offset(0,2),
                         )
                       ]
                     ),
