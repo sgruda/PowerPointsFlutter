@@ -274,7 +274,7 @@ class DataBaseMenu extends StatelessWidget {
           title: Text("Database"),
 //          backgroundColor: Colors.deepOrange,
         ),
-      body: Row(
+      body: Wrap(
         //mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Padding(
@@ -301,6 +301,15 @@ class DataBaseMenu extends StatelessWidget {
               child: Text('Delete'),
               onPressed: () {
                 deleteCoupon(1);
+              },
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: RaisedButton(
+              child: Text('Delete all'),
+              onPressed: () {
+                deleteAllCoupons();
               },
             ),
           ),

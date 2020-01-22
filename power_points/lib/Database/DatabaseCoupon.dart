@@ -35,11 +35,10 @@ class Coupon {
 
 
   buy(context) async{
-    DatabaseHelper dbHelper;
     if(userPoints >= this.price && this.isBought == false){
       userPoints -= this.price;
       this.isBought = true;
-      dbHelper.update(this);
+      updateCoupon(this);
       showDialog(
           context: context,
           builder: (BuildContext context){
@@ -184,6 +183,13 @@ class DatabaseHelper {
     );
   }
 
+  Future deleteAll() async {
+    Database db = await database;
+    await db.delete(
+      tableCoupons
+    );
+  }
+
   Future<int> update(Coupon coupon) async {
     Database db = await database;
     return await db.update(
@@ -237,4 +243,10 @@ updateCoupon(coupon) async {
   DatabaseHelper helper = DatabaseHelper.instance;
   int couponId = await helper.update(coupon);
   print('updated row: $couponId');
+}
+
+deleteAllCoupons() async {
+  DatabaseHelper helper = DatabaseHelper.instance;
+  await helper.deleteAll();
+  print('deleted all coupons :<');
 }
