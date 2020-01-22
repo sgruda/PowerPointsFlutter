@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_base/Model/Constans.dart';
 import 'package:flutter_base/Model/QRCode.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:flutter_base/Database/DatabaseHelpers.dart';
-import 'package:flutter_base/Database/ReadSave.dart';
+import 'package:flutter_base/Database/DatabaseCoupon.dart';
 
 
 class ProfileMenu extends StatefulWidget {
@@ -266,6 +265,8 @@ class PointsMenu extends StatelessWidget {
 
 
 class DataBaseMenu extends StatelessWidget {
+  DatabaseHelper dbHelper;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -281,7 +282,7 @@ class DataBaseMenu extends StatelessWidget {
             child: RaisedButton(
               child: Text('Read'),
               onPressed: () {
-                read(20);
+                readCoupon(1);
               },
             ),
           ),
@@ -290,7 +291,16 @@ class DataBaseMenu extends StatelessWidget {
             child: RaisedButton(
               child: Text('Save'),
               onPressed: () {
-                save('Hello', 'assets/piwo_low.jpg', 'assets/piwo.jpg', 30, 'Kupon witający', false);
+                saveCoupon('Hello', 'assets/piwo_low.jpg', 'assets/piwo.jpg', 30, 'Kupon witający', false);
+              },
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: RaisedButton(
+              child: Text('Delete'),
+              onPressed: () {
+                deleteCoupon(1);
               },
             ),
           ),

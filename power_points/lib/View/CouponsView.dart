@@ -3,9 +3,34 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base/Model/Constans.dart';
 import 'package:flutter_base/Model/QRCode.dart';
-import 'package:flutter_base/Model/Coupons.dart';
+import 'package:flutter_base/Database/DatabaseCoupon.dart';
+import 'package:sqflite/sqflite.dart';
 
-class CouponsMenu extends StatelessWidget {
+class CouponsMenu extends StatefulWidget {
+
+  @override
+  _CouponsMenuState createState() => _CouponsMenuState();
+}
+
+class _CouponsMenuState extends State<CouponsMenu> {
+  final GlobalKey<FormState> _formStateKey = GlobalKey<FormState>();
+  DatabaseHelper dbHelper;
+
+  Future<List<Coupon>> coupons;
+
+  @override
+  void initState() {
+    super.initState();
+    dbHelper = DatabaseHelper();
+    refreshCouponList();
+  }
+
+  refreshCouponList(){
+    setState(() {
+      coupons = dbHelper.getCoupons();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +44,19 @@ class CouponsMenu extends StatelessWidget {
       body: Center(
         child: Container(
           padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
-          child: _myListView(context),
+          child: FutureBuilder(
+            future: coupons,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return _myListView(context, snapshot.data);
+              }
+              if (snapshot.data == null || snapshot.data.length == 0) {
+                return Text('No Data Found');
+              }
+             return CircularProgressIndicator();
+
+          },
+        ),
         ),
       ),
     );
@@ -156,7 +193,7 @@ class CouponCardState extends State<CouponCard>{
   }
 }
 
-Widget _myListView(BuildContext context) {
+Widget _myListView(BuildContext context, List<Coupon> coupons) {
 
 
 
