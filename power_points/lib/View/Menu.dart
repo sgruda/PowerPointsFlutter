@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_base/Database/DatabaseMarker.dart';
 import 'package:flutter_base/Model/Constans.dart';
 import 'package:flutter_base/Model/QRCode.dart';
 import 'package:image_picker/image_picker.dart';
@@ -265,7 +266,7 @@ class PointsMenu extends StatelessWidget {
 
 
 class DataBaseMenu extends StatelessWidget {
-  DatabaseHelper dbHelper;
+  DBCouponsHelper dbHelper;
 
   @override
   Widget build(BuildContext context) {
@@ -282,7 +283,7 @@ class DataBaseMenu extends StatelessWidget {
             child: RaisedButton(
               child: Text('Read'),
               onPressed: () {
-                readCoupon(25);
+                getMarker(5);
               },
             ),
           ),
@@ -291,7 +292,31 @@ class DataBaseMenu extends StatelessWidget {
             child: RaisedButton(
               child: Text('Save'),
               onPressed: () {
-                saveCoupon('Hello', 'assets/piwo_low.jpg', 'assets/piwo.jpg', 30, 'Kupon witający', false);
+                addMarker(
+                    51.747179, 19.453392,
+                    "O winda!", "",
+                    "Brawo", "Udało Ci się znaleźć windę. Zdobyłeś 10 punktów! Czy wiedziałeś, że często się psują?",
+                    10, true);
+                addMarker(
+                    51.747208, 19.453742,
+                    "Lodex", "",
+                    "Niemożliwe", "Udało Ci się zobaczyć Lodex => budenek trzech wydziałów! Zdobyłeś 20 punktów!",
+                    10, true);
+                addMarker(
+                    51.747208, 19.453742,
+                    "Kącik.", "",
+                    "Kącik sali.", "Stoisz w kącie! Zdobyłeś 10 punktów!",
+                    10, true);
+                addMarker(
+                    51.589825, 19.158179,
+                    "blok.", "",
+                    "dgsg", "Stoisz w kącie! Zdobyłeś 10 punktów!",
+                    10, true);
+                addMarker(
+                    51.755231, 19.530784,
+                    "Klepek", "",
+                    "Dom Klepka", "Przystań Bogów",
+                    100, true);
               },
             ),
           ),
@@ -300,7 +325,7 @@ class DataBaseMenu extends StatelessWidget {
             child: RaisedButton(
               child: Text('Delete'),
               onPressed: () {
-                deleteCoupon(1);
+                deleteMarker(1);
               },
             ),
           ),
@@ -309,7 +334,7 @@ class DataBaseMenu extends StatelessWidget {
             child: RaisedButton(
               child: Text('Delete all'),
               onPressed: () {
-                deleteAllCoupons();
+                deleteAllMarker();
               },
             ),
           ),

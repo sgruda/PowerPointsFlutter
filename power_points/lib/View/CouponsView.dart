@@ -13,15 +13,15 @@ class CouponsMenu extends StatefulWidget {
 }
 
 class _CouponsMenuState extends State<CouponsMenu> {
-  final GlobalKey<FormState> _formStateKey = GlobalKey<FormState>();
-  DatabaseHelper dbHelper;
+  final GlobalKey<FormState> _formStateKey = GlobalKey<FormState>(); //chyba można usunąc tą linijkę
+  DBCouponsHelper dbHelper;
 
   Future<List<Coupon>> coupons;
 
   @override
   void initState() {
     super.initState();
-    dbHelper = DatabaseHelper();
+    dbHelper = DBCouponsHelper();
     refreshCouponList();
   }
 

@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_base/View/LoadingScreen.dart';
 import 'package:flutter_base/View/Menu.dart';
 import 'package:flutter_base/View/CouponsView.dart';
 import 'package:flutter_base/View/FireMapState.dart';
 import 'package:flutter_base/Controller/CheckPointsFunction.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_base/Model/Constans.dart';
+import 'package:flutter_base/Database/DatabaseMarker.dart';
 
 void main() => runApp(MyApp());
 
@@ -27,7 +29,13 @@ InputDecorationTheme inputDecorationTheme1 = InputDecorationTheme(
   )
 );
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
@@ -63,11 +71,44 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
+
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  DBMarkerHelper dbHelper;
+
+  Future<List<MarkerData>> markers;
+
+  @override
+  void initState() {
+    super.initState();
+    dbHelper = DBMarkerHelper();
+    refreshMarkerList();
+  }
+
+  refreshMarkerList(){
+    setState(() {
+      markers = dbHelper.getMarkers();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FireMap(),
+      body: FutureBuilder(
+          future: markers,
+          builder: (context, snapshot){
+            if(snapshot.hasData) {
+              return FireMap(snapshot.data);
+            }
+            if (snapshot.data == null || snapshot.data.length == 0){
+              return Text('No Data Found');
+            }
+            return CircularProgressIndicator();
+          }),
       appBar: AppBar(
         title: Text('Mapka'),
 //        backgroundColor: Colors.deepOrange,
@@ -115,7 +156,16 @@ class HomeScreen extends StatelessWidget {
           child: FloatingActionButton.extended(
             label: Text("Sprawdź"),
             onPressed: () {
-              checkPoints(context);
+              Navigator.push(context, MaterialPageRoute(builder: (context) =>
+              FutureBuilder(
+                future: markers,
+                builder: (context, snapshot){
+                  if(snapshot.hasData) {
+                    print('Data');
+                    checkPoints(context, snapshot.data);
+                  } else print('No data');
+                  return LoadingScreen();
+                })));
             },
             icon: Icon(Icons.camera),
 //            backgroundColor: Colors.deepOrange,

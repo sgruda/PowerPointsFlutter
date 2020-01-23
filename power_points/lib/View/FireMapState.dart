@@ -3,14 +3,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_base/Model/Constans.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
-import 'package:flutter_base/Model/Markers.dart';
+import 'package:flutter_base/Database/DatabaseMarker.dart';
+
 
 class FireMap extends StatefulWidget {
+  List<MarkerData> markers;
+
+  FireMap(this.markers);
+
   @override
-  State createState() => FireMapState();
+  State createState() => FireMapState(this.markers);
 }
 
 class FireMapState extends State<FireMap> {
+  List<MarkerData> markers;
+
+  FireMapState(this.markers);
+
   GoogleMapController mapController;
   build(context) {
     return Stack(
@@ -32,7 +41,7 @@ class FireMapState extends State<FireMap> {
   }
 
   void _onMapCreated(GoogleMapController controller) {
-    _addMarkers(controller);
+    _addMarkers(controller, markers);
     _animateToUser();
     //_checkPoints();
     setState(() {
@@ -41,7 +50,7 @@ class FireMapState extends State<FireMap> {
         if(REFRESH) {
           REFRESH = false;
           mapController.clearMarkers();
-          _addMarkers(mapController);
+          _addMarkers(mapController, markers);
         }
       });
     });
@@ -58,10 +67,10 @@ class FireMapState extends State<FireMap> {
     );
   }
 
-  void _addMarkers(GoogleMapController controller) {
+  void _addMarkers(GoogleMapController controller,List<MarkerData> markers) {
     var _icon =  BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueYellow);
-    for (int i = 0; i < Markers.markers.length; i++) {
-      if(Markers.markers[i].active) {
+    for (int i = 0; i < markers.length; i++) {
+      if(markers[i].active) {
         _icon =  BitmapDescriptor.defaultMarkerWithHue(
                      BitmapDescriptor.hueAzure);
       } else {
@@ -69,15 +78,19 @@ class FireMapState extends State<FireMap> {
                    BitmapDescriptor.hueOrange);
       }
       var marker = MarkerOptions(
-          position: LatLng(Markers.markers[i].markerLatitude,
-              Markers.markers[i].markerLongitude),
+          position: LatLng(
+              markers[i].latitude,
+              markers[i].longitude),
           //Polibuda
 //        position: LatLng(51.589825, 19.158243),                                     //Home
           icon: _icon,
-          infoWindowText: InfoWindowText(Markers.markers[i].markerTitle,
-              Markers.markers[i].markerDescription)
+          infoWindowText: InfoWindowText(
+              markers[i].title,
+              markers[i].description)
       );
       controller.addMarker(marker);
     }
   }
+
+
 }

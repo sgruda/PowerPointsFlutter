@@ -67,8 +67,7 @@ class Coupon {
     imagePath = map[columnImagePath];
     price = map[columnPrice];
     description = map[columnDescription];
-    if (map[columnIsBought] == 0) isBought = false;
-    else isBought = true;
+    map[columnIsBought] == 0 ? isBought = false: isBought = true;
   }
 
   Map<String, dynamic> toMap() {
@@ -87,14 +86,14 @@ class Coupon {
   }
 }
 
-class DatabaseHelper {
-  DatabaseHelper();
+class DBCouponsHelper {
+  DBCouponsHelper();
 
   static final _databaseName = "MyDatabase.db";
   static final _databaseVersion = 1;
 
-  DatabaseHelper._privateConstructor();
-  static final DatabaseHelper instance = DatabaseHelper._privateConstructor();
+  DBCouponsHelper._privateConstructor();
+  static final DBCouponsHelper instance = DBCouponsHelper._privateConstructor();
 
   static Database _database;
   Future<Database> get database async {
@@ -125,7 +124,7 @@ class DatabaseHelper {
               ''');
   }
 
-  Future<int> insert(Coupon coupon) async {
+  Future<int> add(Coupon coupon) async {
     Database db = await database;
     int id = await db.insert(tableCoupons, coupon.toMap());
     return id;
@@ -164,7 +163,8 @@ class DatabaseHelper {
           columnPrice,
           columnDescription,
           columnIsBought,
-        ],);
+        ],
+    );
     List<Coupon> coupons = [];
     if(maps.length > 0) {
       for(int i = 0; i < maps.length; i++) {
@@ -207,20 +207,20 @@ class DatabaseHelper {
 
 }
 
-readCoupon(id) async {
-  DatabaseHelper helper = DatabaseHelper.instance;
+getCoupon(id) async {
+  DBCouponsHelper helper = DBCouponsHelper.instance;
   int rowId = id;
   Coupon coupon = await helper.getCoupon(rowId);
   if (coupon == null) {
-    print('read row $rowId: empty');
+    print('Coupon read row $rowId: empty');
   } else {
-    print('read row $rowId: title: ${coupon.title}, iconImagePath: ${coupon.iconImagePath}, imagePath: ${coupon.imagePath}, price: ${coupon.price}, description: ${coupon.description}, isBought: ${coupon.isBought}');
+    print('Coupon read row $rowId: title: ${coupon.title}, iconImagePath: ${coupon.iconImagePath}, imagePath: ${coupon.imagePath}, price: ${coupon.price}, description: ${coupon.description}, isBought: ${coupon.isBought}');
     return coupon;
   }
 }
 
 
-saveCoupon(title, iconImagePath, imagePath, price, description, isBought) async {
+addCoupon(title, iconImagePath, imagePath, price, description, isBought) async {
   Coupon coupon = Coupon();
   coupon.title = title;
   coupon.iconImagePath = iconImagePath;
@@ -228,25 +228,27 @@ saveCoupon(title, iconImagePath, imagePath, price, description, isBought) async 
   coupon.price = price;
   coupon.description = description;
   coupon.isBought = isBought;
-  DatabaseHelper helper = DatabaseHelper.instance;
-  int id = await helper.insert(coupon);
-  print('inserted row: $id');
+  DBCouponsHelper helper = DBCouponsHelper.instance;
+  int id = await helper.add(coupon);
+  print('Coupon inserted row: $id');
 }
 
 deleteCoupon(int id) async {
-  DatabaseHelper helper = DatabaseHelper.instance;
+  DBCouponsHelper helper = DBCouponsHelper.instance;
   int couponId = await helper.delete(id);
-  print('deleted row: $couponId');
-}
-
-updateCoupon(coupon) async {
-  DatabaseHelper helper = DatabaseHelper.instance;
-  int couponId = await helper.update(coupon);
-  print('updated row: $couponId');
+  print('Coupon deleted row: $couponId');
 }
 
 deleteAllCoupons() async {
-  DatabaseHelper helper = DatabaseHelper.instance;
+  DBCouponsHelper helper = DBCouponsHelper.instance;
   await helper.deleteAll();
-  print('deleted all coupons :<');
+  print('Coupon deleted all coupons :<');
 }
+
+updateCoupon(coupon) async {
+  DBCouponsHelper helper = DBCouponsHelper.instance;
+  int couponId = await helper.update(coupon);
+  print('Coupon updated row: $couponId');
+}
+
+
