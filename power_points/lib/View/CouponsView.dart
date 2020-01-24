@@ -13,7 +13,7 @@ class CouponsMenu extends StatefulWidget {
 }
 
 class _CouponsMenuState extends State<CouponsMenu> {
-  final GlobalKey<FormState> _formStateKey = GlobalKey<FormState>(); //chyba można usunąc tą linijkę
+//  final GlobalKey<FormState> _formStateKey = GlobalKey<FormState>(); //chyba można usunąc tą linijkę
   DBCouponsHelper dbHelper;
 
   Future<List<Coupon>> coupons;
@@ -36,9 +36,9 @@ class _CouponsMenuState extends State<CouponsMenu> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Coupons"),
-        actions: <Widget>[
-          Text("Punkty: " + userPoints.toString())
-        ],
+//        actions: <Widget>[
+//          Text("Punkty: " + userPoints.toString())
+//        ],
 //        backgroundColor: Colors.deepOrange,
       ),
       body: Center(
@@ -90,9 +90,9 @@ class CouponCardState extends State<CouponCard>{
     return Scaffold(
       appBar: AppBar(
         title: Text("Coupons"),
-        actions: <Widget>[
-          Text("Punkty: " + userPoints.toString())
-        ],
+//        actions: <Widget>[
+//          Text("Punkty: " + userPoints.toString())
+//        ],
 //        backgroundColor: Colors.deepOrange,
       ),
 //      backgroundColor: Colors.grey[100],

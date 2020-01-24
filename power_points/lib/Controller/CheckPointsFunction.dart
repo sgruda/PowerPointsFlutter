@@ -4,11 +4,15 @@ import 'package:location/location.dart';
 import 'dart:async';
 import 'package:flutter_base/Model/Constans.dart';
 import 'package:flutter_base/Database/DatabaseMarker.dart';
+import 'package:flutter_base/Database/DatabaseUsers.dart';
 
 Future checkPoints(BuildContext context) async {
-  DBMarkerHelper dbHelper = DBMarkerHelper.instance;
-  List<MarkerData> markers = await dbHelper.getMarkers();
-
+  DBMarkerHelper dbMarkerHelper = DBMarkerHelper.instance;
+  List<MarkerData> markers = await dbMarkerHelper.getMarkers();
+  
+  DBUsersHelper dbUsersHelper = DBUsersHelper.instance;
+  User user = await dbUsersHelper.getUser(1);
+  
   var location = new Location();
   var pos = await location.getLocation();
   if(instruction) {
@@ -22,7 +26,8 @@ Future checkPoints(BuildContext context) async {
 
       _popAd(context, markers[i].titleAfterCheck,
               markers[i].descriptionAfterCheck);
-      userPoints += markers[i].points;
+      user.points += markers[i].points;
+      updateUser(user);
       markers[i].active = false;
       markers[i].points = 200;
       await updateMarker(markers[i]);

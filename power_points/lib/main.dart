@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_base/View/LoadingScreen.dart';
 import 'package:flutter_base/View/Menu.dart';
 import 'package:flutter_base/View/CouponsView.dart';
 import 'package:flutter_base/View/FireMapState.dart';

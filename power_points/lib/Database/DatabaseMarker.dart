@@ -64,7 +64,7 @@ class MarkerData {
 class DBMarkerHelper {
   DBMarkerHelper();
 
-  static final _databaseName = "MyDatabase.db";
+  static final _databaseName = "DatabaseMarkers.db";
   static final _databaseVersion = 1;
 
   DBMarkerHelper._privateConstructor();

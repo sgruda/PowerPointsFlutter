@@ -5,6 +5,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base/Model/Constans.dart';
+import 'package:flutter_base/Database/DatabaseUsers.dart';
 
 final String tableCoupons = 'coupons';
 final String columnId = 'id';
@@ -35,8 +36,11 @@ class Coupon {
 
 
   buy(context) async{
-    if(userPoints >= this.price && this.isBought == false){
-      userPoints -= this.price;
+    DBUsersHelper dbUsersHelper = DBUsersHelper.instance;
+    User user = await getUser(1);
+    if(user.points >= this.price && this.isBought == false){
+      user.points -= this.price;
+      updateUser(user);
       this.isBought = true;
       updateCoupon(this);
       showDialog(
@@ -89,7 +93,7 @@ class Coupon {
 class DBCouponsHelper {
   DBCouponsHelper();
 
-  static final _databaseName = "MyDatabase.db";
+  static final _databaseName = "DatabaseCoupons.db";
   static final _databaseVersion = 1;
 
   DBCouponsHelper._privateConstructor();
