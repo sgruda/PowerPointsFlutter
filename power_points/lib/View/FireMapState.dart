@@ -85,7 +85,6 @@ class FireMapState extends State<FireMap> {
               markers[i].description)
       );
       controller.addMarker(marker);
-      REFRESH = true;
     }
   }
 
