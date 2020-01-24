@@ -1,12 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base/View/Menu.dart';
-import 'package:flutter_base/View/CouponsView.dart';
+import 'package:flutter_base/View/CouponsMenu.dart';
 import 'package:flutter_base/View/FireMapState.dart';
 import 'package:flutter_base/Controller/CheckPointsFunction.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_base/Model/Constans.dart';
 import 'package:flutter_base/Database/DatabaseMarker.dart';
+import 'package:flutter_base/View/PointsMenu.dart';
+import 'package:flutter_base/View/ProfileMenu.dart';
 
 void main() => runApp(MyApp());
 
@@ -133,9 +135,7 @@ class _HomeScreenState extends State<HomeScreen> {
             CustomListTile(Icons.monetization_on, 'Points', () {Navigator.push(context, MaterialPageRoute(builder: (context) => PointsMenu()),);}),
             CustomListTile(Icons.confirmation_number, 'Coupons', () {Navigator.push(context, MaterialPageRoute(builder: (context) => CouponsMenu()),);}),
             CustomListTile(Icons.memory, 'Database', () {Navigator.push(context, MaterialPageRoute(builder: (context) => DataBaseMenu()),);}),
-//            CustomListTile(Icons.comment, 'Trivia', () {Navigator.push(context, MaterialPageRoute(builder: (context) => TriviaMenu()),);}),
-//            CustomListTile(Icons.settings, 'Settings', () {Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsMenu()),);}),
-          ],
+         ],
         ),
       ),
       floatingActionButton: Container(
@@ -145,17 +145,6 @@ class _HomeScreenState extends State<HomeScreen> {
           child: FloatingActionButton.extended(
             label: Text("Sprawdź"),
             onPressed: ()
-//            {
-//              dbHelper.getMarkers().then((result) {
-//                setState(() {
-//                  markers = result.;
-//                });
-//              });
-//            },
-
-
-
-
             {
               checkPoints(context);
             },
