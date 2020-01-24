@@ -4,8 +4,10 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_base/Model/Constans.dart';
 import 'package:flutter_base/Database/DatabaseUsers.dart';
+import 'package:flutter/services.dart';
+import 'dart:typed_data';
+
 
 final String tableCoupons = 'coupons';
 final String columnId = 'id';
@@ -109,15 +111,41 @@ class DBCouponsHelper {
   _initDatabase() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
     String path = join(documentsDirectory.path, _databaseName);
-    return await openDatabase(path, 
-        version: _databaseVersion,
-        onCreate: _onCreate);
+
+    var exists = await databaseExists(path);
+
+    if (!exists) {
+      // Should happen only the first time you launch your application
+      print("Creating new copy from asset");
+
+      // Make sure the parent directory exists
+      try {
+        await Directory(dirname(path)).create(recursive: true);
+      } catch (_) {}
+
+      // Copy from asset
+      ByteData data = await rootBundle.load(join("assets", "database", _databaseName));
+      List<int> bytes =
+      data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+
+      // Write and flush the bytes written
+      await File(path).writeAsBytes(bytes, flush: true);
+    } else {
+      print("Opening existing database");
+    }
+
+    return await openDatabase(
+      path,
+      readOnly: false,
+      // version: _databaseVersion,
+      // onCreate: _onCreate
+    );
   }
   
   Future _onCreate(Database db, int version) async {
     await db.execute('''
               CREATE TABLE $tableCoupons (
-                $columnId INTEGER PRIMARY KEY,
+                $columnId INTEGER NOT NULL PRIMARY KEY,
                 $columnTitle TEXT NOT NULL,
                 $columnIconImagePath TEXT NOT NULL,
                 $columnImagePath TEXT NOT NULL,
