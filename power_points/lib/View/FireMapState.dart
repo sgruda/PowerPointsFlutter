@@ -7,19 +7,13 @@ import 'package:flutter_base/Database/DatabaseMarker.dart';
 
 
 class FireMap extends StatefulWidget {
-  List<MarkerData> markers;
-
-  FireMap(this.markers);
+  FireMap();
 
   @override
-  State createState() => FireMapState(this.markers);
+  State createState() => FireMapState();
 }
 
 class FireMapState extends State<FireMap> {
-  List<MarkerData> markers;
-
-  FireMapState(this.markers);
-
   GoogleMapController mapController;
   build(context) {
     return Stack(
@@ -41,7 +35,7 @@ class FireMapState extends State<FireMap> {
   }
 
   void _onMapCreated(GoogleMapController controller) {
-    _addMarkers(controller, markers);
+    _addMarkers(controller);
     _animateToUser();
     //_checkPoints();
     setState(() {
@@ -50,7 +44,7 @@ class FireMapState extends State<FireMap> {
         if(REFRESH) {
           REFRESH = false;
           mapController.clearMarkers();
-          _addMarkers(mapController, markers);
+          _addMarkers(mapController);
         }
       });
     });
@@ -67,7 +61,9 @@ class FireMapState extends State<FireMap> {
     );
   }
 
-  void _addMarkers(GoogleMapController controller,List<MarkerData> markers) {
+  Future _addMarkers(GoogleMapController controller) async{
+    DBMarkerHelper dbMarkerHelper = DBMarkerHelper.instance;
+    List<MarkerData> markers = await dbMarkerHelper.getMarkers();
     var _icon =  BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueYellow);
     for (int i = 0; i < markers.length; i++) {
       if(markers[i].active) {
@@ -89,6 +85,7 @@ class FireMapState extends State<FireMap> {
               markers[i].description)
       );
       controller.addMarker(marker);
+      REFRESH = true;
     }
   }
 

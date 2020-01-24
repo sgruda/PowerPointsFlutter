@@ -98,17 +98,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FutureBuilder(
-          future: markers,
-          builder: (context, snapshot){
-            if(snapshot.hasData) {
-              return FireMap(snapshot.data);
-            }
-            if (snapshot.data == null || snapshot.data.length == 0){
-              return Text('No Data Found');
-            }
-            return CircularProgressIndicator();
-          }),
+      body: FireMap(),
       appBar: AppBar(
         title: Text('Mapka'),
 //        backgroundColor: Colors.deepOrange,
@@ -155,17 +145,20 @@ class _HomeScreenState extends State<HomeScreen> {
         child: FittedBox(
           child: FloatingActionButton.extended(
             label: Text("Sprawdź"),
-            onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) =>
-              FutureBuilder(
-                future: markers,
-                builder: (context, snapshot){
-                  if(snapshot.hasData) {
-                    print('Data');
-                    checkPoints(context, snapshot.data);
-                  } else print('No data');
-                  return LoadingScreen();
-                })));
+            onPressed: ()
+//            {
+//              dbHelper.getMarkers().then((result) {
+//                setState(() {
+//                  markers = result.;
+//                });
+//              });
+//            },
+
+
+
+
+            {
+              checkPoints(context);
             },
             icon: Icon(Icons.camera),
 //            backgroundColor: Colors.deepOrange,

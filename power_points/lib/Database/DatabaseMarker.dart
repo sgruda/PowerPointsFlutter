@@ -196,6 +196,7 @@ getMarker(id) async {
 }
 
 
+
 addMarker(latitude, longitude, title, description, titleAfterCheck, descriptionAfterCheck, points, active) async {
   MarkerData marker = MarkerData();
   marker.latitude = latitude;

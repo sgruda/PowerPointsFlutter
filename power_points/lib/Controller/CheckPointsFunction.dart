@@ -5,9 +5,9 @@ import 'dart:async';
 import 'package:flutter_base/Model/Constans.dart';
 import 'package:flutter_base/Database/DatabaseMarker.dart';
 
-void checkPoints(BuildContext context, List<MarkerData> markers) async {
+Future checkPoints(BuildContext context) async {
   DBMarkerHelper dbHelper = DBMarkerHelper.instance;
-
+  List<MarkerData> markers = await dbHelper.getMarkers();
 
   var location = new Location();
   var pos = await location.getLocation();
