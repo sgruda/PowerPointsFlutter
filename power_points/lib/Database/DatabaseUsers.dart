@@ -186,6 +186,7 @@ getUser(id) async {
 }
 
 
+
 addUser(name, points) async {
   User user = User();
   user.name = name;
@@ -213,9 +214,10 @@ updateUser(User user) async {
   print('User updated row: $userId');
 }
 
-buyUser(User user, int price) async{
+changeNameUser(int id, String newName) async{
   DBUsersHelper helper = DBUsersHelper.instance;
-  user.points =- price;
+  User user = await helper.getUser(id);
+  user.name = newName;
   int userId = await helper.update(user);
   print('User updated row: $userId');
 }

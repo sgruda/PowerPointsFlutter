@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base/Model/Constans.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:flutter_base/Database/DatabaseUsers.dart';
 
 Widget decideImageView(double rad){
   {
@@ -30,6 +31,23 @@ class ProfileMenu extends StatefulWidget {
 }
 
 class ProfileMenuState extends State<ProfileMenu> {
+  DBUsersHelper dbHelper;
+
+  Future<User> user;
+
+  @override
+  void initState() {
+    super.initState();
+    dbHelper = DBUsersHelper();
+    refreshUserList();
+  }
+
+  refreshUserList(){
+    setState(() {
+      user = dbHelper.getUser(1);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,32 +64,44 @@ class ProfileMenuState extends State<ProfileMenu> {
                 child: decideImageView(115)
             ),
             SizedBox(height: 30,),
-            Center(child: AutoSizeText(
-              //userName,
-              'placeholder',
-              style: TextStyle(fontSize: 35),
-              maxLines: 1,)
+            Center(child: FutureBuilder(
+              future: user,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return AutoSizeText(
+                    //userName,
+                    snapshot.data.name,
+                    style: TextStyle(fontSize: 35),
+                    maxLines: 1,);
+                }
+                if (snapshot.data == null || snapshot.data.length == 0) {
+                  return Text('No Data Found');
+                }
+                return CircularProgressIndicator();
+
+              },
+            ),
             ),
             Padding(padding: EdgeInsets.all(40),)
           ],
         ),
         //child: Text("Morty",style: TextStyle(color: Colors.white,fontSize: 35),),
       ),
-      floatingActionButton: Container(
-        height: 60,
-        width: 200,
-        child: FittedBox(
-          child: FloatingActionButton.extended(
-            label: Text("Edytuj profil"),
-            onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => EditMenu()),);
-            },
-            icon: Icon(Icons.assignment_ind),
-//            backgroundColor: Colors.deepOrange,
-          ),
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+//      floatingActionButton: Container(
+//        height: 60,
+//        width: 200,
+//        child: FittedBox(
+//          child: FloatingActionButton.extended(
+//            label: Text("Edytuj profil"),
+//            onPressed: () {
+//              Navigator.push(context, MaterialPageRoute(builder: (context) => EditMenu()),);
+//            },
+//            icon: Icon(Icons.assignment_ind),
+////            backgroundColor: Colors.deepOrange,
+//          ),
+//        ),
+//      ),
+//      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }
@@ -189,6 +219,24 @@ class EditNickFormState extends State<EditNickForm> {
   // not a GlobalKey<MyCustomFormState>.
   final _formKey = GlobalKey<FormState>();
 
+  DBUsersHelper dbHelper;
+
+  Future<User> user;
+
+  @override
+  void initState() {
+    super.initState();
+    dbHelper = DBUsersHelper();
+    refreshUserList();
+  }
+
+  refreshUserList(){
+    setState(() {
+      user = dbHelper.getUser(1);
+    });
+  }
+
+
   @override
   Widget build(BuildContext context) {
     // Build a Form widget using the _formKey created above.
@@ -207,7 +255,8 @@ class EditNickFormState extends State<EditNickForm> {
               if (value.isEmpty) {
                 return 'Pole nie może być puste';
               }
-              //userName = value;//nie działa jak powinno
+              changeNameUser(1, value);
+
               return null;
             },
           ),

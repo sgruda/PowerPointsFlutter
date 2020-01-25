@@ -133,6 +133,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 )
             ),
             DrawerTile(Icons.person, 'Profil', () {Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileMenu()),);} ),
+            DrawerTile(Icons.assignment_ind,'Edycja profilu', () {Navigator.push(context, MaterialPageRoute(builder: (context) => EditMenu()),);} ),
             DrawerTile(Icons.monetization_on, 'Punkty', () {Navigator.push(context, MaterialPageRoute(builder: (context) => PointsMenu()),);} ),
             DrawerTile(Icons.confirmation_number, 'Kupony', () {Navigator.push(context, MaterialPageRoute(builder: (context) => CouponsMenu()),);} ),
             DrawerTile(Icons.help_outline,'Pomoc', () {Navigator.push(context, MaterialPageRoute(builder: (context) => HelpMenu()),);} ),
