@@ -66,9 +66,3 @@ Future<void> _popAd(BuildContext context, String title, String text) async {
     },
   );
 }
-_activeMarkerSave(markerIndex, active) async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  await prefs.setBool("activeMarker" + markerIndex, active);
-  print('$markerIndex  $active');
-
-}
