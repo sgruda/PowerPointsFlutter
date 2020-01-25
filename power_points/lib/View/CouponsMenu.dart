@@ -199,16 +199,39 @@ class CouponCardState extends State<CouponCard>{
                     ),
                     child: ListView(
                       children: <Widget>[
-                        AutoSizeText(
-                          coupon.title,
-                          style: TextStyle(fontSize: 20),
-                          maxLines: 1,
+                        Row(
+                          children: <Widget>[
+                            AnimatedContainer(
+                              duration: Duration(milliseconds: 400),
+                              curve: Curves.decelerate,
+                              width: isTapped ? 175 : 150,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  AutoSizeText(
+                                    coupon.title,
+                                    style: TextStyle(fontSize: 20),
+                                    maxLines: 1,
+                                  ),
+                                  AutoSizeText(
+                                    "Cena: " + coupon.price.toString(),
+                                    style: TextStyle(fontSize: 10),
+                                    maxLines: 1,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Padding(padding: EdgeInsets.all(5),),
+                            Icon(
+                              coupon.isBought == true
+                                  ? Icons.check_box
+                                  : Icons.check_box_outline_blank,
+                              color: color6,
+                            ),
+                          ],
+
                         ),
-                        AutoSizeText(
-                          "Cena: " + coupon.price.toString(),
-                          style: TextStyle(fontSize: 10),
-                          maxLines: 1,
-                        ),
+
                         Padding(padding: EdgeInsets.fromLTRB(0, 30, 0, 0),),
                         AutoSizeText(
                           coupon.description,
