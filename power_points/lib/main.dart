@@ -48,6 +48,7 @@ class _MyAppState extends State<MyApp> {
       bodyColor: color5,
       displayColor: color5,
       decorationColor: color5,
+      fontFamily: 'Montserrat'
     );
     return MaterialApp(
       theme: ThemeData(
