@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_base/Database/DatabaseUsers.dart';
 import 'package:flutter_base/Model/Constans.dart';
 import 'package:flutter_base/Model/QRCode.dart';
 import 'package:flutter_base/Database/DatabaseCoupon.dart';
@@ -13,38 +14,40 @@ Widget couponsList(BuildContext context, List<Coupon> coupons) {
     padding: EdgeInsets.all(7),
     itemCount: coupons.length,
     itemBuilder: (context, index) {
-      return  Card(
-        margin: EdgeInsets.all(7),
-        elevation: 2,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10)
-        ),
-        child: ListTile(
-          leading: Container(
-            height: 50,
-            width: 50,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                image: DecorationImage(
-                    image: AssetImage(coupons[index].imagePath),
-                    fit: BoxFit.cover
-                ),
+      return  Container(
+        child: Card(
+          margin: EdgeInsets.all(7),
+          elevation: 2,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10)
+          ),
+          child: ListTile(
+            leading: Container(
+              height: 50,
+              width: 50,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  image: DecorationImage(
+                      image: AssetImage(coupons[index].imagePath),
+                      fit: BoxFit.cover
+                  ),
+              ),
             ),
+            title: Text(coupons[index].title),
+            subtitle: Text("Cena: " + coupons[index].price.toString()),
+            trailing: Icon(
+                coupons[index].isBought == true
+                    ? Icons.check_box
+                    : Icons.check_box_outline_blank,
+              color: color6,
+            ),
+            onTap: () {Navigator.push(
+              context,
+              PageRouteBuilder(
+                  pageBuilder: (_, __, ___) => CouponCard(coupons[index]),
+                  transitionDuration: Duration(milliseconds: 500)),
+            );},
           ),
-          title: Text(coupons[index].title),
-          subtitle: Text("Cena: " + coupons[index].price.toString()),
-          trailing: Icon(
-              coupons[index].isBought == true
-                  ? Icons.check_box
-                  : Icons.check_box_outline_blank,
-            color: color6,
-          ),
-          onTap: () {Navigator.push(
-            context,
-            PageRouteBuilder(
-                pageBuilder: (_, __, ___) => CouponCard(coupons[index]),
-                transitionDuration: Duration(milliseconds: 500)),
-          );},
         ),
       );
     },
@@ -63,20 +66,20 @@ class CouponsMenu extends StatefulWidget {
 
 class _CouponsMenuState extends State<CouponsMenu> {
 //  final GlobalKey<FormState> _formStateKey = GlobalKey<FormState>(); //chyba można usunąc tą linijkę
-  DBCouponsHelper dbHelper;
+  DBCouponsHelper dbCouponsHelper;
 
   Future<List<Coupon>> coupons;
 
   @override
   void initState() {
     super.initState();
-    dbHelper = DBCouponsHelper();
+    dbCouponsHelper = DBCouponsHelper();
     refreshCouponList();
   }
 
   refreshCouponList(){
     setState(() {
-      coupons = dbHelper.getCoupons();
+      coupons = dbCouponsHelper.getCoupons();
     });
   }
 
@@ -84,7 +87,7 @@ class _CouponsMenuState extends State<CouponsMenu> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Coupons"),
+        title: Text("Kupony"),
 //        actions: <Widget>[
 //          Text("Punkty: " + userPoints.toString())
 //        ],
@@ -141,7 +144,7 @@ class CouponCardState extends State<CouponCard>{
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Coupons"),
+        title: Text("Kupony"),
 //        actions: <Widget>[
 //          Text("Punkty: " + userPoints.toString())
 //        ],
@@ -154,6 +157,13 @@ class CouponCardState extends State<CouponCard>{
               margin: EdgeInsets.fromLTRB(40, 20, 40, 120),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
+                boxShadow: [
+                  BoxShadow(
+                      blurRadius: 10.0,
+                      spreadRadius: 1,
+                      color: Colors.black26
+                  )
+                ],
                 image: DecorationImage(
                   image: AssetImage(coupon.imagePath),
                   fit: BoxFit.cover
@@ -181,9 +191,9 @@ class CouponCardState extends State<CouponCard>{
                       borderRadius: isTapped ? BorderRadius.circular(20) : BorderRadius.circular(10),
                       boxShadow: [
                         BoxShadow(
-                          blurRadius: 10.0,
-                          spreadRadius: 1,
-                          offset: Offset(0,2),
+                            blurRadius: 10.0,
+                            spreadRadius: 1,
+                            color: Colors.black26
                         )
                       ]
                     ),

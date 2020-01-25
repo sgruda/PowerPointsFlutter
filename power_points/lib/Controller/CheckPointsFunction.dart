@@ -15,10 +15,10 @@ Future checkPoints(BuildContext context) async {
   
   var location = new Location();
   var pos = await location.getLocation();
-  if(instruction) {
-    _popAd(context, "Dziękujemy za pobranie aplikacji.", "Idź w świat i poznawaj kampus, przy okazji zbieraj punkty (klikając przy chodzeniu) i wymieniej je na piwo ;)");
-    instruction = false;
-  }
+//  if(instruction) {
+//    _popAd(context, "Dziękujemy za pobranie aplikacji.", "Idź w świat i poznawaj kampus, przy okazji zbieraj punkty (klikając przy chodzeniu) i wymieniej je na piwo ;)");
+//    instruction = false;
+//  }
   for(int i = 0 ; i < markers.length; i++) {
     if (markers[i].active &&
         abs(pos.latitude - markers[i].latitude) < 0.00015 &&

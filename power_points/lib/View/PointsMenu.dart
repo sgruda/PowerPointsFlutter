@@ -31,7 +31,7 @@ class _PointsMenuState extends State<PointsMenu> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Points"),
+          title: Text("Punkty"),
 //          backgroundColor: Colors.deepOrange,
         ),
         body: Center(
@@ -39,7 +39,7 @@ class _PointsMenuState extends State<PointsMenu> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Center(child: Text("Number of points", style: TextStyle(fontSize: 35),)),
+              Center(child: Text("Liczba punktów", style: TextStyle(fontSize: 35),)),
               SizedBox(height: 30,),
               Center(
                   child:CircleAvatar(

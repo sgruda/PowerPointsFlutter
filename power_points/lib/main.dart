@@ -102,7 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       body: FireMap(),
       appBar: AppBar(
-        title: Text('Mapka'),
+        title: Text('PoliMapka'),
 //        backgroundColor: Colors.deepOrange,
       ),
       drawer: Drawer(
@@ -126,16 +126,17 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       Padding(
                         padding: const EdgeInsets.all(4.0),
-                        child: Text('Mapka: The Game',style: TextStyle(color: Colors.white, fontSize: 25.0)),
+                        child: Text('PoliMapka',style: TextStyle(color: Colors.white, fontSize: 30.0)),
                       ),
                     ],
                   ),
                 )
             ),
-            DrawerTile(Icons.person, 'Profile', () {Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileMenu()),);}),
-            DrawerTile(Icons.monetization_on, 'Points', () {Navigator.push(context, MaterialPageRoute(builder: (context) => PointsMenu()),);}),
-            DrawerTile(Icons.confirmation_number, 'Coupons', () {Navigator.push(context, MaterialPageRoute(builder: (context) => CouponsMenu()),);}),
-            DrawerTile(Icons.memory, 'Database', () {Navigator.push(context, MaterialPageRoute(builder: (context) => DataBaseMenu()),);}),
+            DrawerTile(Icons.person, 'Profil', () {Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileMenu()),);} ),
+            DrawerTile(Icons.monetization_on, 'Punkty', () {Navigator.push(context, MaterialPageRoute(builder: (context) => PointsMenu()),);} ),
+            DrawerTile(Icons.confirmation_number, 'Kupony', () {Navigator.push(context, MaterialPageRoute(builder: (context) => CouponsMenu()),);} ),
+            DrawerTile(Icons.help_outline,'Pomoc', () {Navigator.push(context, MaterialPageRoute(builder: (context) => HelpMenu()),);} ),
+            //DrawerTile(Icons.memory, 'Database', () {Navigator.push(context, MaterialPageRoute(builder: (context) => DataBaseMenu()),);} ),
          ],
         ),
       ),

@@ -34,7 +34,7 @@ class ProfileMenuState extends State<ProfileMenu> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Profile"),
+        title: Text("Profil"),
 //        backgroundColor: Colors.deepOrange,
       ),
       body: Center(
@@ -109,7 +109,7 @@ class _EditMenuState extends State<EditMenu> {
               InkWell(
                 child: Container(
                     padding: EdgeInsets.all(10),
-                    child: Text("Gallery")),
+                    child: Text("Galeria")),
                 onTap: (){
                   openGallery();
                 },
@@ -117,7 +117,7 @@ class _EditMenuState extends State<EditMenu> {
               InkWell(
                 child: Container(
                     padding: EdgeInsets.all(10),
-                    child: Text("Camera")),
+                    child: Text("Kamera")),
                 onTap: (){
                   openCamera();
                 },

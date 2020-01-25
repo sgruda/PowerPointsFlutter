@@ -10,12 +10,49 @@ class HelpMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Help"),
+          title: Text("Pomoc"),
 //          backgroundColor: Colors.deepOrange,
         ),
         body: Center(
           child: Container(
-            child: Text('Placeholder'),
+            height: 330,
+            width: 300,
+            decoration: BoxDecoration(
+              color: color3,
+              borderRadius: BorderRadius.circular(10),
+              boxShadow: [
+                BoxShadow(
+                  blurRadius: 10.0,
+                  spreadRadius: 1,
+                  color: Colors.black26
+                )
+              ]
+            ),
+            child: Column(
+              children: <Widget>[
+                Container(
+                  padding: EdgeInsets.all(20),
+                  child: Text(
+                    'Instrukcja',
+                    style: TextStyle(fontSize: 35),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+
+                Container(
+                  padding: EdgeInsets.all(20),
+                  child: Text(
+                          '\n1. Podejdź do najbliższego znacznika na mapie.'
+                          '\n\n2. Naciśnij przycisk sprawdź.'
+                          '\n\n3. Wymień zdobyte punkty na kupony.',
+                    style: TextStyle(
+                        fontSize: 20,
+                    ),
+
+                  ),
+                ),
+              ],
+            ),
           )
         )
     );
