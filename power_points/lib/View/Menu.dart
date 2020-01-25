@@ -3,6 +3,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_base/Database/DatabaseMarker.dart';
 import 'package:flutter_base/Database/DatabaseCoupon.dart';
 import 'package:flutter_base/Database/DatabaseUsers.dart';
+import 'package:flutter_base/Model/Constans.dart';
+
+class HelpMenu extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: Text("Help"),
+//          backgroundColor: Colors.deepOrange,
+        ),
+        body: Center(
+          child: Container(
+            child: Text('Placeholder'),
+          )
+        )
+    );
+  }
+}
 
 
 class DataBaseMenu extends StatelessWidget {

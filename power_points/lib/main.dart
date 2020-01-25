@@ -9,6 +9,7 @@ import 'package:flutter_base/Model/Constans.dart';
 import 'package:flutter_base/Database/DatabaseMarker.dart';
 import 'package:flutter_base/View/PointsMenu.dart';
 import 'package:flutter_base/View/ProfileMenu.dart';
+import 'package:flutter_base/View/DrawerTile.dart';
 
 void main() => runApp(MyApp());
 
@@ -131,10 +132,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 )
             ),
-            CustomListTile(Icons.person, 'Profile', () {Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileMenu()),);}),
-            CustomListTile(Icons.monetization_on, 'Points', () {Navigator.push(context, MaterialPageRoute(builder: (context) => PointsMenu()),);}),
-            CustomListTile(Icons.confirmation_number, 'Coupons', () {Navigator.push(context, MaterialPageRoute(builder: (context) => CouponsMenu()),);}),
-            CustomListTile(Icons.memory, 'Database', () {Navigator.push(context, MaterialPageRoute(builder: (context) => DataBaseMenu()),);}),
+            DrawerTile(Icons.person, 'Profile', () {Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileMenu()),);}),
+            DrawerTile(Icons.monetization_on, 'Points', () {Navigator.push(context, MaterialPageRoute(builder: (context) => PointsMenu()),);}),
+            DrawerTile(Icons.confirmation_number, 'Coupons', () {Navigator.push(context, MaterialPageRoute(builder: (context) => CouponsMenu()),);}),
+            DrawerTile(Icons.memory, 'Database', () {Navigator.push(context, MaterialPageRoute(builder: (context) => DataBaseMenu()),);}),
          ],
         ),
       ),

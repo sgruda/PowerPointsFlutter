@@ -6,6 +6,55 @@ import 'package:flutter_base/Model/QRCode.dart';
 import 'package:flutter_base/Database/DatabaseCoupon.dart';
 import 'package:sqflite/sqflite.dart';
 
+
+
+Widget couponsList(BuildContext context, List<Coupon> coupons) {
+  return ListView.builder(
+    padding: EdgeInsets.all(7),
+    itemCount: coupons.length,
+    itemBuilder: (context, index) {
+      return  Card(
+        margin: EdgeInsets.all(7),
+        elevation: 2,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10)
+        ),
+        child: ListTile(
+          leading: Container(
+            height: 50,
+            width: 50,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                image: DecorationImage(
+                    image: AssetImage(coupons[index].imagePath),
+                    fit: BoxFit.cover
+                ),
+            ),
+          ),
+          title: Text(coupons[index].title),
+          subtitle: Text("Cena: " + coupons[index].price.toString()),
+          trailing: Icon(
+              coupons[index].isBought == true
+                  ? Icons.check_box
+                  : Icons.check_box_outline_blank,
+            color: color6,
+          ),
+          onTap: () {Navigator.push(
+            context,
+            PageRouteBuilder(
+                pageBuilder: (_, __, ___) => CouponCard(coupons[index]),
+                transitionDuration: Duration(milliseconds: 500)),
+          );},
+        ),
+      );
+    },
+  );
+
+}
+
+
+
+
 class CouponsMenu extends StatefulWidget {
 
   @override
@@ -48,7 +97,7 @@ class _CouponsMenuState extends State<CouponsMenu> {
             future: coupons,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                return _myListView(context, snapshot.data);
+                return couponsList(context, snapshot.data);
               }
               if (snapshot.data == null || snapshot.data.length == 0) {
                 return Text('No Data Found');
@@ -62,6 +111,9 @@ class _CouponsMenuState extends State<CouponsMenu> {
     );
   }
 }
+
+
+
 
 class CouponCard extends StatefulWidget {
   Coupon coupon;
@@ -193,89 +245,3 @@ class CouponCardState extends State<CouponCard>{
   }
 }
 
-Widget _myListView(BuildContext context, List<Coupon> coupons) {
-
-
-
-  return ListView.builder(
-    itemCount: coupons.length,
-    itemBuilder: (context, index) {
-      return  Card(
-        elevation: 2,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20)
-        ),
-        child: ListTile(
-          leading: Container(
-            height: 50,
-            width: 50,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              image: DecorationImage(
-                image: AssetImage(coupons[index].imagePath),
-                fit: BoxFit.cover
-              )
-            ),
-          ),
-          title: Text(coupons[index].title),
-          subtitle: Text("Cena: " + coupons[index].price.toString()),
-//          onTap: () {Navigator.push(context, MaterialPageRoute(builder: (context) => CouponMenu(coupons[index])),);},
-          onTap: () {Navigator.push(
-              context,
-              PageRouteBuilder(
-                  pageBuilder: (_, __, ___) => CouponCard(coupons[index]),
-                  transitionDuration: Duration(milliseconds: 500)),
-          );},
-        ),
-      );
-    },
-  );
-
-}
-
-class CustomListTile extends StatelessWidget{
-
-  IconData icon;
-  String text;
-  Function onTap;
-
-  CustomListTile(this.icon, this.text, this.onTap);
-
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(10.0, 0, 10.0,0),
-      child: Container(
-        decoration: BoxDecoration(
-            border: Border(bottom: BorderSide(color: color6))
-        ),
-        child: InkWell(
-//            splashColor: Colors.grey,
-            onTap: onTap,
-            child: Container(
-              height: 50,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Row(
-                      children: <Widget>[
-                        Icon(icon),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(text, style: TextStyle(
-                              fontSize: 16.0
-                          ),
-                          ),
-                        ),
-                      ]
-                  ),
-                  Icon(Icons.arrow_right),
-                ],
-              ),
-            )
-        ),
-      ),
-    );
-  }
-}
