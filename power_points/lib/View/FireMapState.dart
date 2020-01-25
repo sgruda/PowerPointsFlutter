@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_base/Model/Constans.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
-import 'package:flutter_base/Model/Markers.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_base/Database/DatabaseMarker.dart';
+
 
 
 class FireMap extends StatefulWidget {
+  FireMap();
+
   @override
   State createState() => FireMapState();
 }
@@ -60,12 +62,13 @@ class FireMapState extends State<FireMap> {
     );
   }
 
-  void _addMarkers(GoogleMapController controller) async{
+  Future _addMarkers(GoogleMapController controller) async{
+    DBMarkerHelper dbMarkerHelper = DBMarkerHelper.instance;
+    List<MarkerData> markers = await dbMarkerHelper.getMarkers();
     var _icon =  BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueYellow);
-    Markers.load();
-    for (int i = 0; i < Markers.markers.length; i++) {
+    for (int i = 0; i < markers.length; i++) {
+      if(markers[i].active) {
 
-      if(Markers.markers[i].active) {
         _icon =  BitmapDescriptor.defaultMarkerWithHue(
                      BitmapDescriptor.hueAzure);
       } else {
@@ -73,15 +76,17 @@ class FireMapState extends State<FireMap> {
                    BitmapDescriptor.hueOrange);
       }
       var marker = MarkerOptions(
-          position: LatLng(Markers.markers[i].markerLatitude,
-              Markers.markers[i].markerLongitude),
-          //Polibuda
-//        position: LatLng(51.589825, 19.158243),                                     //Home
-          icon: _icon,
-          infoWindowText: InfoWindowText(Markers.markers[i].markerTitle,
-              Markers.markers[i].markerDescription)
+          position: LatLng(
+              markers[i].latitude,
+              markers[i].longitude),
+              icon: _icon,
+              infoWindowText: InfoWindowText(
+                  markers[i].title,
+                  markers[i].description)
       );
       controller.addMarker(marker);
     }
   }
+
+
 }

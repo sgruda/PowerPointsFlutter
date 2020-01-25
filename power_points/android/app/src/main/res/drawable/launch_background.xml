@@ -7,6 +7,6 @@
     <item>
         <bitmap
             android:gravity="center"
-            android:src="@mipmap/mapka_icon" />
+            android:src="@mipmap/mapka_icon_no_bg" />
     </item>
 </layer-list>

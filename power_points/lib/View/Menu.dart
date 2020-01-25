@@ -1,241 +1,200 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_base/Database/DatabaseMarker.dart';
+import 'package:flutter_base/Database/DatabaseCoupon.dart';
+import 'package:flutter_base/Database/DatabaseUsers.dart';
 import 'package:flutter_base/Model/Constans.dart';
-import 'package:flutter_base/Model/QRCode.dart';
-import 'package:image_picker/image_picker.dart';
 
-
-
-class ProfileMenu extends StatefulWidget {
-  @override
-  ProfileMenuState createState() {
-    return ProfileMenuState();
-  }
-}
-
-class ProfileMenuState extends State<ProfileMenu> {
+class HelpMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Profile"),
-        backgroundColor: Colors.deepOrange,
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Center(
-              child: decideImageView()
-            ),
-            SizedBox(height: 30,),
-            Center(child: AutoSizeText(
-              userName, 
-              style: TextStyle(fontSize: 35),
-              maxLines: 1,)
-            ),
-            Padding(padding: EdgeInsets.all(40),)
-          ],
+        appBar: AppBar(
+          title: Text("Pomoc"),
+//          backgroundColor: Colors.deepOrange,
         ),
-        //child: Text("Morty",style: TextStyle(color: Colors.white,fontSize: 35),),
-      ),
-      floatingActionButton: Container(
-        height: 60,
-        width: 200,
-        child: FittedBox(
-          child: FloatingActionButton.extended(
-            label: Text("Edytuj profil"),
-            onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => EditMenu()),);
-            },
-            icon: Icon(Icons.assignment_ind),
-            backgroundColor: Colors.deepOrange,
-          ),
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-    );
-  }
-}
+        body: Center(
+          child: Container(
+            height: 330,
+            width: 300,
+            decoration: BoxDecoration(
+              color: color3,
+              borderRadius: BorderRadius.circular(10),
+              boxShadow: [
+                BoxShadow(
+                  blurRadius: 10.0,
+                  spreadRadius: 1,
+                  color: Colors.black26
+                )
+              ]
+            ),
+            child: Column(
+              children: <Widget>[
+                Container(
+                  padding: EdgeInsets.all(20),
+                  child: Text(
+                    'Instrukcja',
+                    style: TextStyle(fontSize: 35),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
 
+                Container(
+                  padding: EdgeInsets.all(20),
+                  child: Text(
+                          '\n1. Podejdź do najbliższego znacznika na mapie.'
+                          '\n\n2. Naciśnij przycisk sprawdź.'
+                          '\n\n3. Wymień zdobyte punkty na kupony.',
+                    style: TextStyle(
+                        fontSize: 20,
+                    ),
 
-Widget decideImageView(){
-  if(imageFile == null){
-    return CircleAvatar(
-      radius: 115,
-      backgroundColor: Colors.deepOrange,
-      child: CircleAvatar(
-          radius: 105,
-          backgroundColor: Colors.white,
-          child: Icon(Icons.person, size: 100, color: Colors.grey,)),
-    );
-  }
-  else{
-    return Container(
-      height: 230,
-      width: 230,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(115),
-          color: Colors.white,
-          border: Border.all(
-              width: 10,
-              color: Colors.deepOrange
-          ),
-          image: DecorationImage(
-              image: AssetImage(imageFile.path),
-              fit: BoxFit.cover
+                  ),
+                ),
+              ],
+            ),
           )
-      ),
+        )
     );
   }
-
 }
 
 
-class EditMenu extends StatefulWidget {
+class DataBaseMenu extends StatelessWidget {
+
   @override
-  _EditMenuState createState() => _EditMenuState();
-}
-
-class _EditMenuState extends State<EditMenu> {
-
-  openGallery() async{
-    imageFile = await ImagePicker.pickImage(source: ImageSource.gallery);
-    this.setState((){}); //refresh page
-    Navigator.of(context).pop();
-  }
-
-  openCamera() async{
-    imageFile = await ImagePicker.pickImage(source: ImageSource.camera);
-    this.setState((){}); //refresh page
-    Navigator.of(context).pop();
-  }
-
-  Future<void> showChoiceDialog(BuildContext context){
-    return showDialog(context: context,builder: (BuildContext context){
-      return AlertDialog(
-        title: Text("Wybierz"),
-        content: SingleChildScrollView(
-          child: ListBody(
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: Text("Database"),
+//          backgroundColor: Colors.deepOrange,
+        ),
+      body: Column(
+        children: <Widget>[
+          Text("Coupons"),
+          Wrap(
+            //mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              GestureDetector(
-                child: Text("Gallery"),
-                onTap: (){
-                  openGallery();
-                },
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: RaisedButton(
+                  child: Text('Read'),
+                  onPressed: () {
+                    getCoupon(1);
+                  },
+                ),
               ),
-              Padding(padding: EdgeInsets.all(8),),
-              GestureDetector(
-                child: Text("Camera"),
-                onTap: (){
-                  openCamera();
-                },
-              )
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: RaisedButton(
+                  child: Text('Save'),
+                  onPressed: () {
+                    addCoupon('Piwo','assets/piwo_low.jpg', 'assets/piwo.jpg', 30, 'Kup jedno piwo w cenie dwóch i kolejne otrzymaj gratis! :0', false);
+                    addCoupon('Ukończenie studiów', 'assets/zaliczenie_low.jpg', 'assets/zaliczenie.jpg', 20, 'Pokaż rektorowi ten kupon i skończ studia wcześniej niż twoi rówieśnicy!', false);
+                    addCoupon('Zabieg dentystyczny', 'assets/slav.jpg', 'assets/slav.jpg', 30, 'Pokaż ten kupon dresowi, a otrzymasz darmowe prostowanie zębów.', false);
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: RaisedButton(
+                  child: Text('Delete all'),
+                  onPressed: () {
+                    deleteAllCoupons();
+                  },
+                ),
+              ),
             ],
           ),
-        ),
-      );
-    });
-  }
-
-
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Edycja profilu"),
-        backgroundColor: Colors.deepOrange,
-      ),
-      body: Center(
-        child: ListView(
-          children: <Widget>[
-            Container(
-              padding: EdgeInsets.fromLTRB(30, 40, 30, 25),
-              child: Column(
-                children: <Widget>[
-                  Center(
-                    child: decideImageView()
-                  ),
-                  Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 5.0)
-                  ),
-                  RaisedButton(
-                    onPressed: (){
-                      showChoiceDialog(context);
-                    },
-                    child: Text("Zmień zdjęcie"),
-                  ),
-                ],
+          Text("Markers"),
+          Wrap(
+            //mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: RaisedButton(
+                  child: Text('Read'),
+                  onPressed: () {
+                    getMarker(5);
+                  },
+                ),
               ),
-            ),
-            Container(
-              padding: EdgeInsets.fromLTRB(30, 20, 30, 20),
-              child: EditNickForm()
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-}
-
-
-class EditNickForm extends StatefulWidget {
-  @override
-  EditNickFormState createState() {
-    return EditNickFormState();
-  }
-}
-
-
-class EditNickFormState extends State<EditNickForm> {
-  // Create a global key that uniquely identifies the Form widget
-  // and allows validation of the form.
-  //
-  // Note: This is a GlobalKey<FormState>,
-  // not a GlobalKey<MyCustomFormState>.
-  final _formKey = GlobalKey<FormState>();
-
-  @override
-  Widget build(BuildContext context) {
-    // Build a Form widget using the _formKey created above.
-    return Form(
-      key: _formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          TextFormField(
-            textCapitalization: TextCapitalization.words,
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              labelText: 'Wprowadź nowy nick',
-            ),
-            validator: (value) {
-              if (value.isEmpty) {
-                return 'Pole nie może być puste';
-              }
-              userName = value;//nie działa jak powinno
-              return null;
-            },
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: RaisedButton(
+                  child: Text('Save'),
+                  onPressed: () {
+                    addMarker(
+                        51.747179, 19.453392,
+                        "O winda!", "",
+                        "Brawo", "Udało Ci się znaleźć windę. Zdobyłeś 10 punktów! Czy wiedziałeś, że często się psują?",
+                        10, true);
+                    addMarker(
+                        51.747208, 19.453742,
+                        "Lodex", "",
+                        "Niemożliwe", "Udało Ci się zobaczyć Lodex => budenek trzech wydziałów! Zdobyłeś 20 punktów!",
+                        10, true);
+                    addMarker(
+                        51.747208, 19.453742,
+                        "Kącik.", "",
+                        "Kącik sali.", "Stoisz w kącie! Zdobyłeś 10 punktów!",
+                        10, true);
+                    addMarker(
+                        51.589825, 19.158179,
+                        "blok.", "",
+                        "dgsg", "Stoisz w kącie! Zdobyłeś 10 punktów!",
+                        10, true);
+                    addMarker(
+                        51.755231, 19.530784,
+                        "Klepek", "",
+                        "Dom Klepka", "Przystań Bogów",
+                        100, true);
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: RaisedButton(
+                  child: Text('Delete all'),
+                  onPressed: () {
+                    deleteAllMarker();
+                  },
+                ),
+              ),
+            ],
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16.0),
-            child: Center(
-              child: RaisedButton(
-                onPressed: () {
-                  FocusScope.of(context).unfocus();// hides keyboard
-                  if (_formKey.currentState.validate()) {
-                    Scaffold.of(context)
-                        .showSnackBar(SnackBar(content: Text('Zmieniono nick')));
-                  }
-                },
-                child: Text('Zmień nick'),
+          Text("User"),
+          Wrap(
+            //mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: RaisedButton(
+                  child: Text('Read'),
+                  onPressed: () {
+                    getUser(1);
+                  },
+                ),
               ),
-            ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: RaisedButton(
+                  child: Text('Save'),
+                  onPressed: () {
+                    addUser('Klepek', 100);
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: RaisedButton(
+                  child: Text('Delete all'),
+                  onPressed: () {
+                    deleteAllUsers();
+                  },
+                ),
+              ),
+            ],
           ),
         ],
       ),
@@ -243,75 +202,3 @@ class EditNickFormState extends State<EditNickForm> {
   }
 }
 
-
-class PointsMenu extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text("Points"),
-          backgroundColor: Colors.deepOrange,
-        ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Center(child: Text("Number of points", style: TextStyle(fontSize: 35),)),
-              SizedBox(height: 30,),
-              Center(
-                  child:CircleAvatar(
-                    radius: 60,
-                    backgroundColor: Colors.deepOrange,
-                    child: CircleAvatar(
-                        radius: 55,
-                        backgroundColor: Colors.white,
-                        child: Text(userPoints.toString(), style: TextStyle(fontSize: 50, color: Colors.black))),
-                  )
-              )
-            ],
-          ),
-        )
-    );
-  }
-}
-
-class TriviaMenu extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Trivia"),
-        backgroundColor: Colors.deepOrange,
-      ),
-      body: Center(
-        child: RaisedButton(
-          onPressed: () {
-            // Navigate back to first route when tapped.
-          },
-          child: Text('Go back!'),
-        ),
-      ),
-    );
-  }
-}
-
-class SettingsMenu extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Settings"),
-        backgroundColor: Colors.deepOrange,
-      ),
-      body: Center(
-        child: RaisedButton(
-          onPressed: () {
-            // Navigate back to first route when tapped.
-          },
-          child: Text('Go back!'),
-        ),
-      ),
-    );
-  }
-}

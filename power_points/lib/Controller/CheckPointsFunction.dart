@@ -3,31 +3,39 @@ import 'package:flutter/material.dart';
 import 'package:location/location.dart';
 import 'dart:async';
 import 'package:flutter_base/Model/Constans.dart';
-import 'package:flutter_base/Model/Markers.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_base/Database/DatabaseMarker.dart';
+import 'package:flutter_base/Database/DatabaseUsers.dart';
 
 
-void checkPoints(BuildContext context) async {
+Future checkPoints(BuildContext context) async {
+  DBMarkerHelper dbMarkerHelper = DBMarkerHelper.instance;
+  List<MarkerData> markers = await dbMarkerHelper.getMarkers();
+  
+  DBUsersHelper dbUsersHelper = DBUsersHelper.instance;
+  User user = await dbUsersHelper.getUser(1);
+  
   var location = new Location();
   var pos = await location.getLocation();
-  if(instruction) {
-    _popAd(context, "Dziękujemy za pobranie aplikacji.", "Idź w świat i poznawaj kampus, przy okazji zbieraj punkty (klikając przy chodzeniu) i wymieniej je na piwo ;)");
-    instruction = false;
-  }
-  for(int i = 0 ; i < Markers.markers.length; i++) {
-    Markers.load();
-    if (Markers.markers[i].active &&
-        abs(pos.latitude - Markers.markers[i].markerLatitude) < 0.00015 &&
-        abs(pos.longitude - Markers.markers[i].markerLongitude) < 0.00015) {
 
-      _popAd(context, Markers.markers[i].markerTitleAfterCheck,
-              Markers.markers[i].markerDescriptionAfterCheck);
-      userPoints += Markers.markers[i].points;
-      Markers.markers[i].active = false;
-      _activeMarkerSave(i.toString(), false);
+  for(int i = 0 ; i < markers.length; i++) {
+    if (markers[i].active &&
+        abs(pos.latitude - markers[i].latitude) < 0.00015 &&
+        abs(pos.longitude - markers[i].longitude) < 0.00015) {
+
+      _popAd(context, markers[i].titleAfterCheck,
+              markers[i].descriptionAfterCheck);
+      user.points += markers[i].points;
+      updateUser(user);
+      markers[i].active = false;
+      markers[i].points = 200;
+      await updateMarker(markers[i]);
+      print('Marker ${markers[i].id} ${markers[i].active.toString()}');
+      getMarker(i+1);
+
       REFRESH = true;
     }
   }
+
 }
 double abs(double x) {
   return x < 0 ? -x : x;
