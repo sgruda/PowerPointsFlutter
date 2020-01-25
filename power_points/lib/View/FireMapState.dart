@@ -77,12 +77,10 @@ class FireMapState extends State<FireMap> {
           position: LatLng(
               markers[i].latitude,
               markers[i].longitude),
-          //Polibuda
-//        position: LatLng(51.589825, 19.158243),                                     //Home
-          icon: _icon,
-          infoWindowText: InfoWindowText(
-              markers[i].title,
-              markers[i].description)
+              icon: _icon,
+              infoWindowText: InfoWindowText(
+                  markers[i].title,
+                  markers[i].description)
       );
       controller.addMarker(marker);
     }

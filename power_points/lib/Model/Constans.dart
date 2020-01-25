@@ -1,8 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-bool instruction = true;
 bool REFRESH = false;
 File imageFile;
 
