@@ -15,7 +15,7 @@ class HelpMenu extends StatelessWidget {
         ),
         body: Center(
           child: Container(
-            height: 330,
+            height: 350,
             width: 300,
             decoration: BoxDecoration(
               color: color3,
@@ -28,7 +28,7 @@ class HelpMenu extends StatelessWidget {
                 )
               ]
             ),
-            child: Column(
+            child: ListView(
               children: <Widget>[
                 Container(
                   padding: EdgeInsets.all(20),
