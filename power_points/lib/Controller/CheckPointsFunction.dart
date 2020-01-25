@@ -6,6 +6,7 @@ import 'package:flutter_base/Model/Constans.dart';
 import 'package:flutter_base/Database/DatabaseMarker.dart';
 import 'package:flutter_base/Database/DatabaseUsers.dart';
 
+
 Future checkPoints(BuildContext context) async {
   DBMarkerHelper dbMarkerHelper = DBMarkerHelper.instance;
   List<MarkerData> markers = await dbMarkerHelper.getMarkers();
@@ -15,6 +16,7 @@ Future checkPoints(BuildContext context) async {
   
   var location = new Location();
   var pos = await location.getLocation();
+
   for(int i = 0 ; i < markers.length; i++) {
     if (markers[i].active &&
         abs(pos.latitude - markers[i].latitude) < 0.00015 &&
@@ -29,6 +31,7 @@ Future checkPoints(BuildContext context) async {
       await updateMarker(markers[i]);
       print('Marker ${markers[i].id} ${markers[i].active.toString()}');
       getMarker(i+1);
+
       REFRESH = true;
     }
   }
@@ -62,4 +65,10 @@ Future<void> _popAd(BuildContext context, String title, String text) async {
       );
     },
   );
+}
+_activeMarkerSave(markerIndex, active) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  await prefs.setBool("activeMarker" + markerIndex, active);
+  print('$markerIndex  $active');
+
 }

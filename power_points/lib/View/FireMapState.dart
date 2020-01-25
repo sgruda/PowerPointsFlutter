@@ -6,6 +6,7 @@ import 'package:location/location.dart';
 import 'package:flutter_base/Database/DatabaseMarker.dart';
 
 
+
 class FireMap extends StatefulWidget {
   FireMap();
 
@@ -67,6 +68,7 @@ class FireMapState extends State<FireMap> {
     var _icon =  BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueYellow);
     for (int i = 0; i < markers.length; i++) {
       if(markers[i].active) {
+
         _icon =  BitmapDescriptor.defaultMarkerWithHue(
                      BitmapDescriptor.hueAzure);
       } else {
