@@ -37,9 +37,9 @@ Widget couponsList(BuildContext context, List<Coupon> coupons) {
             subtitle: Text("Cena: " + coupons[index].price.toString()),
             trailing: Icon(
                 coupons[index].isBought == true
-                    ? Icons.check_box
-                    : Icons.check_box_outline_blank,
-              color: color6,
+                    ? Icons.check
+                    : null,
+              color: Colors.lightGreenAccent,
             ),
             onTap: () {Navigator.push(
               context,
@@ -224,9 +224,9 @@ class CouponCardState extends State<CouponCard>{
                             Padding(padding: EdgeInsets.all(5),),
                             Icon(
                               coupon.isBought == true
-                                  ? Icons.check_box
-                                  : Icons.check_box_outline_blank,
-                              color: color6,
+                                  ? Icons.check
+                                  : null,
+                              color: Colors.lightGreenAccent,
                             ),
                           ],
 
